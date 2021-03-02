@@ -1,6 +1,6 @@
 #ifndef MENUPROGRAM_H
 #define MENUPROGRAM_H
-#import"program.h"
+#include "program.h"
 
 class MenuProgram: public Program
 {

@@ -5,7 +5,7 @@
 class Frequency: public TreatmentProgram
 {
 public:
-    Frequency();
+    Frequency(int frequency);
 };
 
 #endif // FREQUENCY_H

@@ -1,6 +1,5 @@
 #include "frequency.h"
 
-Frequency::Frequency()
+Frequency::Frequency(int frequency) : TreatmentProgram (QString::number(frequency) + " Hz", frequency)
 {
-
 }

@@ -48,6 +48,7 @@ HEADERS += \
         treatmentprogram.h
 
 FORMS += \
+        battery.ui \
         mainwindow.ui
 
 # Default rules for deployment.
