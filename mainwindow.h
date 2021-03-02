@@ -23,6 +23,7 @@ private:
     OS *theOS;
     DENASGUI *denasGUI;
     Battery *battery;
+    void connections();
 
 };
 
