@@ -13,7 +13,6 @@ Battery::Battery(QWidget *parent) : QWidget(parent), ui(new Ui::Battery){
     slider->setTickInterval(1);
     slider->setSingleStep(1);
     slider->setValue(get());
-
     connect(slider, &QSlider::valueChanged, this, &Battery::set);
 }
 
@@ -69,5 +68,10 @@ void Battery::update() {
     slider->setValue(get());
     progressBar->setValue(get());
     qDebug() << "Battery is now at " << get() << "%." << endl;
+}
+
+void Battery::getRemain(){
+    qDebug() <<"OS requesting power level" <<endl;
+    emit sendRemain(this->remain);
 }
 

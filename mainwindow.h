@@ -5,6 +5,7 @@
 #include"os.h"
 #include"denasgui.h"
 #include"battery.h"
+#include<QObject>
 
 namespace Ui {
 class MainWindow;
@@ -24,6 +25,8 @@ private:
     DENASGUI *denasGUI;
     Battery *battery;
     void connections();
+    int capacity;
+
 
 };
 

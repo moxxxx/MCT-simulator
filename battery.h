@@ -20,12 +20,16 @@ public slots:
     double charge(double amount);
     void set();
     void set_double(double amount);
+    void getRemain();
+
+signals:
+   void sendRemain(double remain);
 
 private:
     Ui::Battery *ui;
     QProgressBar *progressBar;
     QSlider *slider;
-    const double capacity = 100;
+    const double capacity =100;
     double remain;
     double screen_power_consumption = 0.1;
     void fix();

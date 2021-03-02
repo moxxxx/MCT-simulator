@@ -4,6 +4,7 @@
 
 class MenuProgram: public Program
 {
+    Q_OBJECT
 public:
     MenuProgram();
 private:
