@@ -49,9 +49,7 @@ void OS::turnOn(){ //start a new menu program and connect
     timer = new QTimer(this);
     QObject::connect(timer, &QTimer::timeout, this, &OS::consume);
     timer->start(interval);
-
-    //menu = new MenuProgram();
-    //QObject::connect(menu, &MenuProgram::sendDrainSignal, this, &OS::drainBatterySlot);
+    emit turnONSucceedSignal();
 }
 
 void OS::shutDown(){
@@ -121,5 +119,13 @@ void OS::clearRecordSlot(){
 void OS::consume(){ // this function will be called by timer in OS,
     if (powerOn){ //only consume power when user turn on machine!
        drainBattery(cost * powerConstant);
+    }
+}
+
+void OS::powerLevelSlot(int powerLevel){
+    if (powerOn && currentProgram){ // if power on and there is a treatment inited
+        treatmentOn = true; //make start treatment!
+        currentProgram->setPowerLevel(powerLevel);
+        currentProgram->start();
     }
 }
