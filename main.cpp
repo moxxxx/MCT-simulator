@@ -22,5 +22,7 @@ int main(int argc, char *argv[])
     // QObject::connect(&theOS, &OS::sentRecordSignal, &gui, &DenasGUI::sentRecordSlot);
     QObject::connect(&gui, &DenasGUI::clearRecordSignal, &theOS, &OS::clearRecordSlot);
     //QObject::connect(&theOS, &OS::turnONSucceedSignal, &gui, &DenasGUI::turnONSucceedSlot);
+    //QObject::connect(&theOS, &OS::initProgramSucceedSignal, &gui, &DenasGUI::initProgramSucceedSlot);
+    QObject::connect(&gui, &DenasGUI::powerLevelSignal, &theOS, &OS::powerLevelSlot);
     return a.exec();
 }
