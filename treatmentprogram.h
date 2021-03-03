@@ -23,6 +23,7 @@ private:
     int frequency;
     int powerLevel;
     int duration;
+    bool isStarted;
     QTimer* timer;
 
 };

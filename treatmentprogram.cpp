@@ -38,13 +38,14 @@ void TreatmentProgram::setDuration(int duration){
 }
 
 QStringList TreatmentProgram::quit(){
+    timer->~QTimer();
     return {title, QString::number(powerLevel), QString::number(duration)};
 }
 
 void TreatmentProgram::start() {
     timer = new QTimer(this);
     connect(this->timer, &QTimer::timeout, this, &TreatmentProgram::quit);
-    timer->start(1000);
+    timer->start(50);
 }
 
 

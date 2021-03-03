@@ -11,6 +11,7 @@ class MenuProgram: public Program
 public:
     MenuProgram();
     void emitDrainPower();
+    void shutdownProgram();
 private:
     const double cost = 0.5; // cost of power per second
     QTimer *timer;
@@ -19,7 +20,7 @@ private:
     void leftPressed();
     void rightPressed();
     void backPressed();
-    void shutdownProgram();
+
 
 signals:
     void sendDrainSignal(double);

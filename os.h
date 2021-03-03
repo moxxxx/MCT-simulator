@@ -22,12 +22,14 @@ public slots:
 signals:
     void updateBatterySignal(double remain);
     void shutdownSignal();
+    void warningSignal();
 
 private:
     TreatmentProgram* currentProgram;
     MenuProgram* menu;
     double powerRemain; // from 0-100
-    double powerConstant = 0.1;
+    double powerConstant = 0.1; //0.1 is signidicant changed, when use it we can set it as 0.01
+    double warningLevel = 5;
     bool powerOn; //
     bool treatmentOn; // indicate whether there is a treatment going on!
     double chargeBattery(double amount);
