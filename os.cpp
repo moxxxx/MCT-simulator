@@ -23,7 +23,7 @@ double OS::drainBattery(double amount) { // will trigged by treatment program an
     powerRemain -= amount;
     fixBattery();
     emit updateBatterySignal(powerRemain);
-    if (powerRemain <= warningLevel){ //
+    if (powerRemain <= warningLevel and powerRemain >=1 ){ // only send warning Signal when 1 =< powerRemain <= warning level
         emit warningSignal();
         qDebug() << "warning signal has been sent" << endl;
     }
@@ -55,6 +55,7 @@ void OS::turnOn(){ //start a new menu program and connect
 void OS::shutDown(){
     //first shut down program, then save history 
     timer->~QTimer();
+    //stop the current program if possible!
 
     powerOn = false;
     qDebug() << "send shutdonw Signal" << endl;
@@ -62,6 +63,7 @@ void OS::shutDown(){
 }
 
 void OS::drainBatterySlot(double power){ // this one is for treatment Program
+
     drainBattery(power * powerConstant);
 }
 
@@ -94,38 +96,42 @@ void OS::initProgramSlot(int programNum, int programType){
              qDebug() << "invalid program NUM" << endl;
              return;
         }
-        qDebug() << "programmed " << endl;
         currentProgram = new Programmed(programNum);
+        emit initProgramSucceedSignal();
     }else if (programType == 0){
         // init frequency treatment!
         currentProgram = new Frequency(programNum);
+        emit initProgramSucceedSignal();
     }else {
         qDebug() << "unregesiter programType " << endl;
     }
 }
-
 
 void OS::requestRecordSlot(){
     if (powerOn){
         emit sentRecordSignal(records);
     }
 }
+
 void OS::clearRecordSlot(){
     if (powerOn){
         records.clear();
         qDebug() << "clear" << endl;
     }
 }
+
 void OS::consume(){ // this function will be called by timer in OS,
     if (powerOn){ //only consume power when user turn on machine!
        drainBattery(cost * powerConstant);
     }
 }
 
-void OS::powerLevelSlot(int powerLevel){
+void OS::powerLevelSlot(int powerLevel){ //override the powerLevel of currentProgram
     if (powerOn && currentProgram){ // if power on and there is a treatment inited
-        treatmentOn = true; //make start treatment!
         currentProgram->setPowerLevel(powerLevel);
-        currentProgram->start();
+    }else if (powerOn){
+        qDebug() << "attempt to change powerLevel with OS is OFF" << endl;
+    }else{
+        qDebug() << "attempt to change powerLevel with currentProgram is NULL!. " << endl;
     }
 }

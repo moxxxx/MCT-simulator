@@ -31,6 +31,7 @@ signals:
     void warningSignal();
     void sentRecordSignal(QStringList records);
     void turnONSucceedSignal();
+    void initProgramSucceedSignal();
 
 private:
     QStringList records;
