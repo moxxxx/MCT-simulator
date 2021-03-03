@@ -1,5 +1,6 @@
 #include "treatmentprogram.h"
 
+
 TreatmentProgram::TreatmentProgram(QString title, int frequency)
 {
     this->title = title;
@@ -45,7 +46,7 @@ QStringList TreatmentProgram::quit(){
 void TreatmentProgram::start() {
     timer = new QTimer(this);
     connect(this->timer, &QTimer::timeout, this, &TreatmentProgram::quit);
-    timer->start(50);
+    timer->start(interval);
 }
 
 

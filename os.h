@@ -5,6 +5,9 @@
 #include"battery.h"
 #include"menuprogram.h"
 #include<QObject>
+#include<QTimer>
+#include"programmed.h"
+#include"frequency.h"
 
 class OS: public QWidget
 {
@@ -18,24 +21,32 @@ public slots:
     void drainBatterySlot(double power);
     void powerButtonSlot();
     void initProgramSlot(int programNum, int programType);
+    void requestRecordSlot();
+    void clearRecordSlot();
 
 signals:
     void updateBatterySignal(double remain);
     void shutdownSignal();
     void warningSignal();
+    void sentRecordSignal(QStringList records);
 
 private:
+    QStringList records;
     TreatmentProgram* currentProgram;
-    MenuProgram* menu;
+    //MenuProgram* menu;
+    const double powerConstant = 0.1; //0.1 is signidicant changed, when use it we can set it as 0.01
+    const double cost = 0.5; //
+    const double warningLevel = 5;
+    const int interval = 50;
+    QTimer *timer;
     double powerRemain; // from 0-100
-    double powerConstant = 0.1; //0.1 is signidicant changed, when use it we can set it as 0.01
-    double warningLevel = 5;
-    bool powerOn; //
+    bool powerOn;
     bool treatmentOn; // indicate whether there is a treatment going on!
     double chargeBattery(double amount);
     void fixBattery();
     void shutDown();
     void turnOn();
+    void consume();
 
 
 

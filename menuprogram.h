@@ -4,7 +4,11 @@
 #include<QTimer>
 #include<QDebug>
 
+/*
 
+Sample Class
+
+*/
 class MenuProgram: public Program
 {
     Q_OBJECT

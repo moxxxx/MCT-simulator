@@ -2,10 +2,12 @@
 #define TREATMENTPROGRAM_H
 #include"program.h"
 #include <QTimer>
+#include<QDebug>
 
 struct TreatmentProgram: public Program
 {
 public:
+
     TreatmentProgram(QString title, int frequency);
     TreatmentProgram(QString title, int frequency, int duration);
     void setPowerLevel(int powerLevel);
@@ -25,6 +27,7 @@ private:
     int duration;
     bool isStarted;
     QTimer* timer;
+    int interval = 50; // override by OS
 
 };
 
