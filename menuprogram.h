@@ -15,14 +15,12 @@ public:
 private:
     const double cost = 0.5; // cost of power per second
     QTimer *timer;
-    int levelOfManu;// 0,1,2
-    int indexInManu;// 0,1,2,3
     void upPressed();
     void downPressed();
     void leftPressed();
     void rightPressed();
     void backPressed();
-    void shutdown();
+    void shutdownProgram();
 
 signals:
     void sendDrainSignal(double);

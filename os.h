@@ -2,7 +2,7 @@
 #define OS_H
 
 #include<QWidget>
-#include"program.h"
+#include"treatmentprogram.h"
 #include"battery.h"
 
 #include"menuprogram.h"
@@ -18,16 +18,20 @@ public:
 public slots:
     void overideBattery(double remain);
     void drainBatterySlot(double power);
+    void powerButtonSlot();
+    void initProgramSlot(int programNum, int programType);
 
 signals:
     void updateBatterySignal(double remain);
+    void shutdownSignal();
 
 private:
-    Program* currentProgram;
+    TreatmentProgram* currentProgram;
     MenuProgram* menu;
     double powerRemain; // from 0-100
     double powerConstant = 0.1;
-    bool powerOn;
+    bool powerOn; //
+    bool treatmentOn; // indicate whether there is a treatment going on!
     double chargeBattery(double amount);
     void fixBattery();
     void turnOn();

@@ -32,6 +32,7 @@ void OS::fixBattery() {
         powerRemain = Battery::CAPACITY;
     }else if (powerRemain < 0){
         powerRemain = 0;
+        shutDown();
     }
 }
 
@@ -44,11 +45,32 @@ void OS::turnOn(){ //start a new menu program and connect
 }
 
 void OS::shutDown(){
+    //first shut down program, then save history
+
     powerOn = false;
+    emit shutdownSignal();
 }
 
 void OS::drainBatterySlot(double power){
     drainBattery(power * powerConstant);
+}
+
+void OS:: powerButtonSlot(){
+    if (powerOn){ //turn off
+        shutDown();
+    }else{ //turn on!
+        turnOn();
+    }
+}
+
+void OS::initProgramSlot(int programNum, int programType){
+    if (programType == 0){//
+        // init frequency treatment!
+
+    }else if (programType == 1){ //
+        // init programmed treatment!
+    }
+    qDebug() << "program Num is "<< programNum << endl;
 }
 
 

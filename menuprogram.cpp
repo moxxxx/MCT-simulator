@@ -22,8 +22,8 @@ void MenuProgram::rightPressed(){
 void MenuProgram::backPressed(){
 
 }
-void MenuProgram::shutdown(){
-
+void MenuProgram::shutdownProgram(){
+    timer->~QTimer();
 }
 void MenuProgram::emitDrainPower(){
     emit sendDrainSignal(cost);

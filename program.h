@@ -3,8 +3,6 @@
 
 #include<QObject>
 class OS;
-// todo: how do we figure out the communication from program to OS?
-
 struct Program: public QObject
 {
     Q_OBJECT
@@ -15,7 +13,7 @@ public:
     virtual void leftPressed()= 0;
     virtual void rightPressed()= 0;
     virtual void backPressed()= 0;
-    virtual void shutdown()= 0;
+    virtual void shutdownProgram()= 0;
 protected:
     OS* myOs;
 };
