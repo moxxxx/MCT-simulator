@@ -1,9 +1,9 @@
 #include "os.h"
+#include "denasgui.h"
 #include<QDebug>
 
 OS::OS(QWidget *parent): QWidget(parent) {
     powerRemain = Battery::CAPACITY;
-    turnOn();
 }
 void OS::overideBattery(double remain){
     powerRemain = remain;
@@ -20,7 +20,6 @@ double OS::drainBattery(double amount) {
     }
     return powerRemain;
 }
-
 double OS::chargeBattery(double amount) {
     powerRemain += amount;
     fixBattery();
@@ -35,7 +34,6 @@ void OS::fixBattery() {
         shutDown();
     }
 }
-
 void OS::turnOn(){ //start a new menu program and connect
     powerOn = true;
     //init menuProgram
@@ -46,7 +44,6 @@ void OS::turnOn(){ //start a new menu program and connect
 
 void OS::shutDown(){
     //first shut down program, then save history
-
     powerOn = false;
     emit shutdownSignal();
 }
@@ -72,5 +69,3 @@ void OS::initProgramSlot(int programNum, int programType){
     }
     qDebug() << "program Num is "<< programNum << endl;
 }
-
-

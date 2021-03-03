@@ -1,6 +1,5 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
-
 #include<QObject>
 class OS;
 struct Program: public QObject

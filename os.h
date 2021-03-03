@@ -1,10 +1,8 @@
 #ifndef OS_H
 #define OS_H
-
 #include<QWidget>
 #include"treatmentprogram.h"
 #include"battery.h"
-
 #include"menuprogram.h"
 #include<QObject>
 
@@ -34,8 +32,10 @@ private:
     bool treatmentOn; // indicate whether there is a treatment going on!
     double chargeBattery(double amount);
     void fixBattery();
-    void turnOn();
     void shutDown();
+    void turnOn();
+
+
 
 
 };
