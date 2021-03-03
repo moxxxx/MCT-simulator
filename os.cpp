@@ -3,6 +3,8 @@
 #include<QDebug>
 #include<QObject>
 
+#include<QThread>
+
 OS::OS(QWidget *parent): QWidget(parent) {
     // when we just open the simulator, the Denas is shutdonw mode and wait to be turn on
     powerRemain = Battery::CAPACITY;
@@ -19,7 +21,7 @@ void OS::overideBattery(double remain){
     qDebug() << "Battery is now at" << powerRemain << "%." << endl;
 }
 
-double OS::drainBattery(double amount) { // will trigged by treatment program and menuProgram
+double OS::drainBattery(double amount) { // will trigged by treatment program
     powerRemain -= amount;
     fixBattery();
     emit updateBatterySignal(powerRemain);
@@ -56,14 +58,16 @@ void OS::shutDown(){
     //first shut down program, then save history 
     timer->~QTimer();
     //stop the current program if possible!
-
+    if (currentProgram){
+        exitTreatmentProgram();
+    }
     powerOn = false;
-    qDebug() << "send shutdonw Signal" << endl;
+    qDebug() << records << endl;
     emit shutdownSignal();
+    qDebug() << "emit shutdownSignal" << endl;
 }
 
 void OS::drainBatterySlot(double power){ // this one is for treatment Program
-
     drainBattery(power * powerConstant);
 }
 
@@ -72,12 +76,20 @@ void OS:: powerButtonSlot(){
         shutDown();
     }else if (powerRemain > warningLevel){ //it is OFF and has enough power turn on!
         turnOn();
+
+        // test!
+        initProgramSlot(0,1);
+        powerLevelSlot(100);
+        skinSlot();
+
+
+
+
     }else{ //
         qDebug() << "not enough battery, please charge" << endl;
         // feature #13
     }
 }
-
 
 void OS::initProgramSlot(int programNum, int programType){
     qDebug() << "programNum" << programNum << "programType" << programType << endl;
@@ -98,10 +110,12 @@ void OS::initProgramSlot(int programNum, int programType){
         }
         currentProgram = new Programmed(programNum);
         emit initProgramSucceedSignal();
+        connectTreatmentProgram();
     }else if (programType == 0){
         // init frequency treatment!
         currentProgram = new Frequency(programNum);
         emit initProgramSucceedSignal();
+        connectTreatmentProgram();
     }else {
         qDebug() << "unregesiter programType " << endl;
     }
@@ -134,4 +148,81 @@ void OS::powerLevelSlot(int powerLevel){ //override the powerLevel of currentPro
     }else{
         qDebug() << "attempt to change powerLevel with currentProgram is NULL!. " << endl;
     }
+}
+
+void OS::connectTreatmentProgram(){ //build connection OS and treatmentPorgram
+    if (currentProgram){
+        //QObject::connect(currentProgram, &TreatmentProgram::updateTimerSignal, this, &OS::updateTimerSlot);
+        QObject::connect(currentProgram, &TreatmentProgram::exitProgramSignal, this, &OS::exitProgramSlot);
+        QObject::connect(currentProgram, &TreatmentProgram::sendDrainSignal, this, &OS::drainBatterySlot);
+    }
+
+}
+
+void OS::skinSlot(){// GUI tell OS that skin is attached
+    if (!powerOn){
+        return;
+    }
+    if (!currentProgram){
+        return;
+    }
+    currentProgram->start(); //start program
+    treatmentOn = true; // OS update
+
+
+
+    qDebug() << "program Start!" << endl;
+
+
+
+
+
+
+
+
+
+
+    //QString a = currentProgram->getTitle();
+    //emit treatmentStartSignal();
+    //tell GUI that it start!
+}
+
+void OS::exitTreatmentProgram(){
+    if (!powerOn){// power OFF, nothing to exit
+        return;
+    }
+    if (!currentProgram){// currentProgram is null, nothing to exit
+        return;
+    }
+
+    QString record = currentProgram->quit();
+    //get record
+    if (treatmentOn){
+        treatmentOn = false;
+    }
+
+    if (record != ""){
+        records.append(record);
+    }
+
+    // need to work on this!
+    delete currentProgram;
+    //currentProgram = nullptr;
+
+    if (currentProgram){
+        qDebug() <<"error! currentProgram is not free!!!" << endl;
+    }
+
+}
+
+void OS::exitProgramSlot(){
+    //treatmentProgram timeout, send exitProgramSignal to ask OS to quit
+    if (!treatmentOn){
+        qDebug() << "treatmentOn variable incosistant!" << endl;
+        return;
+    }
+    exitTreatmentProgram();
+}
+void OS::quitProgramSlot(){// GUI interrupt to stop treatmentProgram
+    exitTreatmentProgram();
 }

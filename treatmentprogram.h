@@ -24,7 +24,7 @@ public:
 
 signals:
     void sendDrainSignal(double cost);
-    void updateSignal(int timer);
+    void updateTimerSignal(int timer);
     void exitProgramSignal();
 
 private:

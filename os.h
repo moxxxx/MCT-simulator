@@ -7,6 +7,7 @@
 #include<QTimer>
 #include"programmed.h"
 #include"frequency.h"
+#include<QString>
 
 class OS: public QWidget
 {
@@ -23,6 +24,10 @@ public slots:
     void requestRecordSlot();
     void clearRecordSlot();
     void powerLevelSlot(int powerLevel);
+    void skinSlot();
+    //void treatmentStartSignal(QString * programName, int powerLevel, int frequency, bool skinOn);
+    void exitProgramSlot(); // this slot is for treatmentProgram!
+    void quitProgramSlot(); // this slot is for GUI!
 
 signals:
     void updateBatterySignal(double remain);
@@ -49,6 +54,8 @@ private:
     void shutDown();
     void turnOn();
     void consume();
+    void connectTreatmentProgram();
+    void exitTreatmentProgram();
 
 
 
