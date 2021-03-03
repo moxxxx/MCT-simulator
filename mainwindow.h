@@ -19,7 +19,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 public slots:
-    void updateBattery(double remain);
+    void updateBatterySlot(double remain);
 private:
     Ui::MainWindow *ui;
     OS *theOS;

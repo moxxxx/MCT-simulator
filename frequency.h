@@ -6,7 +6,7 @@ class Frequency: public TreatmentProgram
 {
     Q_OBJECT
 public:
-    Frequency(int frequency);
+    Frequency(int frequency = 0);
 };
 
 #endif // FREQUENCY_H

@@ -3,6 +3,8 @@
 
 OS::OS(){
     powerRemain = Battery::CAPACITY;
+    turnOn();
+    drainBattery(10);
 }
 void OS::overideBattery(double remain){
     powerRemain = remain;
@@ -10,18 +12,11 @@ void OS::overideBattery(double remain){
     qDebug() << "Battery is now at" << powerRemain << "%." << endl;
 }
 
-void OS::emitGetPower(){
-    emit getPowerSignal();
-}
-
-void OS::emitConsumePower(double power){
-    emit consumePowerSingal(power);
-}
-
 double OS::drainBattery(double amount) {
     powerRemain -= amount;
     fixBattery();
-    emit updateBatterySignal(powerRemain);
+    emit updateBatterySignal(this->powerRemain);
+    qDebug() << "power is now: " << powerRemain << "%" << endl;
     return powerRemain;
 }
 
@@ -39,5 +34,20 @@ void OS::fixBattery() {
         powerRemain = 0;
     }
 }
+
+void OS::turnOn(){ //start a new menu program and connect
+    //set to ON state
+    qDebug() << "turn on!" << endl;
+    powerOn = true;
+    //init menuProgram
+    menu = new MenuProgram();
+    QObject::connect(menu, &MenuProgram::sendDrainSignal, this, &OS::drainBatterySlot);
+    menu->emitDrainPower();
+}
+
+void OS::drainBatterySlot(double power){
+    drainBattery(power * powerConstant);
+}
+
 
 

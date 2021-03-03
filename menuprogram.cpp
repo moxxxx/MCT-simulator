@@ -23,3 +23,7 @@ void MenuProgram::backPressed(){
 void MenuProgram::shutdown(){
 
 }
+void MenuProgram::emitDrainPower(){
+    emit sendDrainSignal(cost);
+    qDebug() << "try send" << endl;
+}

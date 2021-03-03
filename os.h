@@ -4,30 +4,34 @@
 #include<QWidget>
 #include"program.h"
 #include"battery.h"
+#include"menuprogram.h"
+#include<QObject>
 
 class OS: public QWidget
 {
     Q_OBJECT
 public:
     OS();
-    void emitGetPower(); // function to
-    void emitConsumePower(double power);
+    double drainBattery(double amount);
 
 public slots:
     void overideBattery(double remain);
+    void drainBatterySlot(double power);
 
 signals:
-    double getPowerSignal();
-    void consumePowerSingal(double power);
+
+
     void updateBatterySignal(double remain);
 
 private:
     Program* currentProgram;
-    Program* menu;
+    MenuProgram* menu;
     double powerRemain; // from 0-100
-    double drainBattery(double amount);
+    double powerConstant = 5;
+    bool powerOn;
     double chargeBattery(double amount);
     void fixBattery();
+    void turnOn();
 
 };
 

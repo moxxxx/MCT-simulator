@@ -16,7 +16,7 @@ public:
     virtual void rightPressed()= 0;
     virtual void backPressed()= 0;
     virtual void shutdown()= 0;
-private:
+protected:
     OS* myOs;
 };
 
