@@ -4,6 +4,7 @@
 #include<QWidget>
 #include"program.h"
 #include"battery.h"
+
 #include"menuprogram.h"
 #include<QObject>
 
@@ -19,8 +20,6 @@ public slots:
     void drainBatterySlot(double power);
 
 signals:
-
-
     void updateBatterySignal(double remain);
 
 private:
@@ -32,6 +31,7 @@ private:
     double chargeBattery(double amount);
     void fixBattery();
     void turnOn();
+
 
 };
 

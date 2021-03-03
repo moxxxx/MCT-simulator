@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connections();
     ui->progressBar->setRange(0, Battery::CAPACITY);
     ui->progressBar->setValue(Battery::CAPACITY);
-
 }
 
 MainWindow::~MainWindow()

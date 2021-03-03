@@ -26,7 +26,6 @@ double OS::chargeBattery(double amount) {
     emit updateBatterySignal(powerRemain);
     return powerRemain;
 }
-
 void OS::fixBattery() {
     if (powerRemain > Battery::CAPACITY){
         powerRemain = Battery::CAPACITY;
@@ -48,6 +47,5 @@ void OS::turnOn(){ //start a new menu program and connect
 void OS::drainBatterySlot(double power){
     drainBattery(power * powerConstant);
 }
-
 
 

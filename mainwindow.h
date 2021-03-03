@@ -20,6 +20,7 @@ public:
     ~MainWindow();
 public slots:
     void updateBatterySlot(double remain);
+
 private:
     Ui::MainWindow *ui;
     OS *theOS;
