@@ -27,7 +27,10 @@ double OS::drainBattery(double amount) { // will trigged by treatment program
     emit updateBatterySignal(powerRemain);
     if (powerRemain <= warningLevel and powerRemain >=1 ){ // only send warning Signal when 1 =< powerRemain <= warning level
         emit warningSignal();
-        qDebug() << "warning signal has been sent" << endl;
+        //qDebug() << "warning signal has been sent" << endl;
+    }
+    if (powerRemain < 1){
+        shutDown();
     }
     return powerRemain;
 }
@@ -40,9 +43,8 @@ double OS::chargeBattery(double amount) {
 void OS::fixBattery() {
     if (powerRemain > Battery::CAPACITY){
         powerRemain = Battery::CAPACITY;
-    }else if (powerRemain < 0){
+    }else if (powerRemain <= 0){
         powerRemain = 0;
-        shutDown();
     }
 }
 
@@ -61,10 +63,10 @@ void OS::shutDown(){
     if (currentProgram){
         exitTreatmentProgram();
     }
-    powerOn = false;
     qDebug() << records << endl;
     emit shutdownSignal();
     qDebug() << "emit shutdownSignal" << endl;
+    powerOn = false;
 }
 
 void OS::drainBatterySlot(double power){ // this one is for treatment Program
@@ -76,16 +78,7 @@ void OS:: powerButtonSlot(){
         shutDown();
     }else if (powerRemain > warningLevel){ //it is OFF and has enough power turn on!
         turnOn();
-
-        // test!
-        initProgramSlot(0,1);
-        powerLevelSlot(100);
-        skinSlot();
-
-
-
-
-    }else{ //
+    }else{
         qDebug() << "not enough battery, please charge" << endl;
         // feature #13
     }
@@ -100,6 +93,10 @@ void OS::initProgramSlot(int programNum, int programType){
     }
     if (currentProgram){
         qDebug() << "one program is still runing!" << endl;
+        return;
+    }
+    if (powerRemain < warningLevel){
+        qDebug() << "no enough battery" << endl;
         return;
     }
     if (programType > 1 or programType <0){
@@ -118,6 +115,12 @@ void OS::initProgramSlot(int programNum, int programType){
     }
     emit initProgramSucceedSignal();
     connectTreatmentProgram();
+    // test
+    /*
+    powerLevelSlot(60);
+    skinSlot();
+
+    */
 }
 
 void OS::requestRecordSlot(){
@@ -151,7 +154,7 @@ void OS::powerLevelSlot(int powerLevel){ //override the powerLevel of currentPro
 
 void OS::connectTreatmentProgram(){ //build connection OS and treatmentPorgram
     if (currentProgram){
-        //QObject::connect(currentProgram, &TreatmentProgram::updateTimerSignal, this, &OS::updateTimerSlot);
+        QObject::connect(currentProgram, &TreatmentProgram::updateTimerSignal, this, &OS::updateTimerSlot);
         QObject::connect(currentProgram, &TreatmentProgram::exitProgramSignal, this, &OS::exitProgramSlot);
         QObject::connect(currentProgram, &TreatmentProgram::sendDrainSignal, this, &OS::drainBatterySlot);
     }
@@ -183,19 +186,15 @@ void OS::exitTreatmentProgram(){
         return;
     }
 
-    QString record = currentProgram->quit();
-    //get record
-    if (treatmentOn){
-        treatmentOn = false;
-    }
 
-    if (record != ""){
+    //get record
+    if (treatmentOn){ 
+        QString record = currentProgram->quit();
         records.append(record);
     }
-
-    // need to work on this!
     delete currentProgram;
     currentProgram = nullptr;
+    treatmentOn = false;
 
     if (currentProgram){
         qDebug() <<"error! currentProgram is not free!!!" << endl;
@@ -219,5 +218,6 @@ void OS::quitProgramSlot(){// GUI interrupt to stop treatmentProgram
 }
 
 void OS::updateTimerSlot(int timer){ // get timer from TreatmentProgram, tansfer the timer to GUI
+    qDebug() << "OS send ProgramTimerSignal to GUI" << endl;
     emit programTimerSignal(timer);
 }

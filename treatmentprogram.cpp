@@ -6,6 +6,7 @@ TreatmentProgram::TreatmentProgram(QObject *parent, int programNum): QObject(par
     this->frequency = pFrequency[programNum];
     //this->duration = pDuration[programNum] * 60;
     this->duration = pDuration[programNum];
+    this->timer = nullptr;
 }
 
 
@@ -13,6 +14,7 @@ TreatmentProgram::TreatmentProgram(QObject *parent, QString title, int frequency
 {
     this->title = title;
     this->frequency = frequency;
+    this->timer = nullptr;
 }
 
 TreatmentProgram::~TreatmentProgram()
@@ -94,8 +96,6 @@ void TreatmentProgram::update(){
     // Check if program reached preset duration
     if ((duration != 0) && (runtime >= duration)){
         emit exitProgramSignal();
-        //qDebug() << "TreatmentProgram sent exitProgram to OS"<< endl;
     }
 }
-
 
