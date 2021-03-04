@@ -168,10 +168,12 @@ void OS::skinSlot(){// GUI tell OS that skin is attached
     if (!currentProgram){
         return;
     }
+    if (treatmentOn){ // if treatment is already on then ignore
+        return;
+    }
     currentProgram->start(); //start program
     treatmentOn = true; // OS update
     qDebug() << "detected Skin ON, program Start!" << endl;
-
     //tell GUI that it start!
     emit treatmentStartSignal(currentProgram->getTitle() , currentProgram->getPowerLevel(), currentProgram->getFrequency(), true);
     qDebug() << "emit TreatmentStartSignal" << endl;

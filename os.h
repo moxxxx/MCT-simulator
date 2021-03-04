@@ -14,7 +14,7 @@ class OS: public QWidget
     Q_OBJECT
 public:
     explicit OS(QWidget *parent = nullptr);
-    double drainBattery(double amount);
+    //double drainBattery(double amount);
 
 public slots:
     void overideBattery(double remain);
@@ -54,6 +54,7 @@ private:
     bool powerOn;
     bool treatmentOn; // indicate whether there is a treatment going on!
     double chargeBattery(double amount);
+    double drainBattery(double amount);
     void fixBattery();
     void shutDown();
     void turnOn();
