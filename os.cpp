@@ -125,7 +125,16 @@ void OS::initProgramSlot(int programNum, int programType){
 
 void OS::requestRecordSlot(){
     if (powerOn){
-        emit sentRecordSignal(records);
+        int count = 0;
+        QStringList displayList;
+        for (int i = records.size()-1; i >= 0; i--){
+            if (count >5){
+                break;
+            }
+            displayList << records.at(i);
+            count ++;
+        }
+        emit sentRecordSignal(displayList);
     }
 }
 
