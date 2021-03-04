@@ -27,7 +27,7 @@ double OS::drainBattery(double amount) { // will trigged by treatment program
     emit updateBatterySignal(powerRemain);
     if (powerRemain <= warningLevel and powerRemain >=1 ){ // only send warning Signal when 1 =< powerRemain <= warning level
         emit warningSignal();
-        //qDebug() << "warning signal has been sent" << endl;
+        qDebug() << "warning signal has been sent" << endl;
     }
     if (powerRemain < 1){
         shutDown();
