@@ -24,10 +24,11 @@ public slots:
     void requestRecordSlot();
     void clearRecordSlot();
     void powerLevelSlot(int powerLevel);
-    void skinSlot();
-    //void treatmentStartSignal(QString * programName, int powerLevel, int frequency, bool skinOn);
+    void skinSlot();// this slot is for GUI!
     void exitProgramSlot(); // this slot is for treatmentProgram!
     void quitProgramSlot(); // this slot is for GUI!
+    void updateTimerSlot(int timer); // this slot is for treatmentProgram!
+
 
 signals:
     void updateBatterySignal(double remain);
@@ -36,6 +37,9 @@ signals:
     void sentRecordSignal(QStringList records);
     void turnONSucceedSignal();
     void initProgramSucceedSignal();
+    void treatmentStartSignal(QString ProgramName, int powerLevel,int frequency, bool skinOn);
+    void programTimerSignal(int timer);
+    void exitProgramSignal();
 
 private:
     QStringList records;

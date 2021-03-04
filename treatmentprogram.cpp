@@ -4,7 +4,8 @@ TreatmentProgram::TreatmentProgram(QObject *parent, int programNum): QObject(par
 {
     this->title = programs[programNum];
     this->frequency = pFrequency[programNum];
-    this->duration = pDuration[programNum] * 60;
+    //this->duration = pDuration[programNum] * 60;
+    this->duration = pDuration[programNum];
 }
 
 
@@ -81,10 +82,6 @@ void TreatmentProgram::start() {
 
 void TreatmentProgram::update(){
     runtime++;
-    // Check if program reached preset duration
-    if ((duration != 0) && (runtime >= duration)){
-        emit exitProgramSignal();
-    }
     //drain battery power
     emit sendDrainSignal(powerLevel/10);
     //Update timer display
@@ -94,6 +91,11 @@ void TreatmentProgram::update(){
        emit updateTimerSignal(duration - runtime);
     }
     qDebug() << title << "runs for" << runtime << "s"<< endl;
+    // Check if program reached preset duration
+    if ((duration != 0) && (runtime >= duration)){
+        emit exitProgramSignal();
+        //qDebug() << "TreatmentProgram sent exitProgram to OS"<< endl;
+    }
 }
 
 

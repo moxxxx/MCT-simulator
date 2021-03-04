@@ -78,7 +78,7 @@ void OS:: powerButtonSlot(){
         turnOn();
 
         // test!
-        initProgramSlot(2,0);
+        initProgramSlot(0,1);
         powerLevelSlot(100);
         skinSlot();
 
@@ -92,7 +92,7 @@ void OS:: powerButtonSlot(){
 }
 
 void OS::initProgramSlot(int programNum, int programType){
-    qDebug() << "programNum" << programNum << "programType" << programType << endl;
+    //qDebug() << "programNum" << programNum << "programType" << programType << endl;
     //get a initProgram request, init porgram
     if (!powerOn){
         qDebug() << "power off" << endl;
@@ -115,7 +115,6 @@ void OS::initProgramSlot(int programNum, int programType){
     }else if (programType == 0){
         // init frequency treatment!
         currentProgram = new Frequency(programNum);
-
     }
     emit initProgramSucceedSignal();
     connectTreatmentProgram();
@@ -168,23 +167,12 @@ void OS::skinSlot(){// GUI tell OS that skin is attached
     }
     currentProgram->start(); //start program
     treatmentOn = true; // OS update
+    qDebug() << "detected Skin ON, program Start!" << endl;
 
-
-
-    qDebug() << "program Start!" << endl;
-
-
-
-
-
-
-
-
-
-
-    //QString a = currentProgram->getTitle();
-    //emit treatmentStartSignal();
     //tell GUI that it start!
+    emit treatmentStartSignal(currentProgram->getTitle() , currentProgram->getPowerLevel(), currentProgram->getFrequency(), true);
+    qDebug() << "emit TreatmentStartSignal" << endl;
+
 }
 
 void OS::exitTreatmentProgram(){
@@ -212,6 +200,9 @@ void OS::exitTreatmentProgram(){
     if (currentProgram){
         qDebug() <<"error! currentProgram is not free!!!" << endl;
     }
+    // tell GUI that a program has exit
+    emit exitProgramSignal();
+    qDebug() << "send exitProgramSignal to GUI, a tretamentProgram has been terminated. " << endl;
 
 }
 
@@ -225,4 +216,8 @@ void OS::exitProgramSlot(){
 }
 void OS::quitProgramSlot(){// GUI interrupt to stop treatmentProgram
     exitTreatmentProgram();
+}
+
+void OS::updateTimerSlot(int timer){ // get timer from TreatmentProgram, tansfer the timer to GUI
+    emit programTimerSignal(timer);
 }
