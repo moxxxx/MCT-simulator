@@ -55,8 +55,8 @@ void OS::turnOn(){ //start a new menu program and connect
 }
 
 void OS::shutDown(){
-    //first shut down program, then save history 
-    timer->~QTimer();
+    delete timer;
+    timer = nullptr;
     //stop the current program if possible!
     if (currentProgram){
         exitTreatmentProgram();
@@ -78,7 +78,7 @@ void OS:: powerButtonSlot(){
         turnOn();
 
         // test!
-        initProgramSlot(0,1);
+        initProgramSlot(2,0);
         powerLevelSlot(100);
         skinSlot();
 
@@ -102,6 +102,9 @@ void OS::initProgramSlot(int programNum, int programType){
         qDebug() << "one program is still runing!" << endl;
         return;
     }
+    if (programType > 1 or programType <0){
+        qDebug() << "unregesiter programType " << endl;
+    }
     if (programType == 1){
         // init programmed treatment!
         if (programNum > 3 or programNum < 0){
@@ -109,16 +112,13 @@ void OS::initProgramSlot(int programNum, int programType){
              return;
         }
         currentProgram = new Programmed(programNum);
-        emit initProgramSucceedSignal();
-        connectTreatmentProgram();
     }else if (programType == 0){
         // init frequency treatment!
         currentProgram = new Frequency(programNum);
-        emit initProgramSucceedSignal();
-        connectTreatmentProgram();
-    }else {
-        qDebug() << "unregesiter programType " << endl;
+
     }
+    emit initProgramSucceedSignal();
+    connectTreatmentProgram();
 }
 
 void OS::requestRecordSlot(){
@@ -207,7 +207,7 @@ void OS::exitTreatmentProgram(){
 
     // need to work on this!
     delete currentProgram;
-    //currentProgram = nullptr;
+    currentProgram = nullptr;
 
     if (currentProgram){
         qDebug() <<"error! currentProgram is not free!!!" << endl;

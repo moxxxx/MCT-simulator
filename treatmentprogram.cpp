@@ -16,7 +16,11 @@ TreatmentProgram::TreatmentProgram(QObject *parent, QString title, int frequency
 
 TreatmentProgram::~TreatmentProgram()
 {
-    delete timer;
+    if (timer){
+        delete timer;
+        timer = nullptr;
+    }
+
 }
 
 void TreatmentProgram::setPowerLevel(int powerLevel){
@@ -44,7 +48,9 @@ void TreatmentProgram::setDuration(int duration){
 }
 
 QString TreatmentProgram::quit(){
-    timer->~QTimer();
+    //timer->~QTimer();
+    delete timer;
+    timer = nullptr;
     //return empty QString if not start
     if (runtime == 0){
         return "";
