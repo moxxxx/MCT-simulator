@@ -25,11 +25,27 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        battery.cpp \
+        denasgui.cpp \
+        frequency.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        menuprogram.cpp \
+        os.cpp \
+        program.cpp \
+        programmed.cpp \
+        treatmentprogram.cpp
 
 HEADERS += \
-        mainwindow.h
+        battery.h \
+        denasgui.h \
+        frequency.h \
+        mainwindow.h \
+        menuprogram.h \
+        os.h \
+        program.h \
+        programmed.h \
+        treatmentprogram.h
 
 FORMS += \
         mainwindow.ui
