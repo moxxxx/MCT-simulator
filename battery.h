@@ -18,8 +18,8 @@ public:
 public slots:
     double drain(double amount);
     double charge(double amount);
-    void set(double amount);
-    void valueChanged();
+    void set_double(double amount);
+    void set();
 
 signals:
     void valueChanged(int value);

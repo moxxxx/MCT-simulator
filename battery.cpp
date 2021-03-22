@@ -1,10 +1,11 @@
 #include "battery.h"
 #include "ui_battery.h"
+#include<QDebug>
 
 Battery::Battery(QWidget *parent) : QWidget(parent), ui(new Ui::Battery){
     ui->setupUi(this);
-    progressBar = new QProgressBar();
-    slider = new QSlider();
+    progressBar = ui->progressBar;
+    slider = ui->horizontalSlider;
     progressBar->setRange(0, static_cast<int>(capacity));
     progressBar->setValue(get_remain_int());
     slider->setRange(0, static_cast<int>(capacity));
@@ -17,7 +18,9 @@ Battery::Battery(QWidget *parent) : QWidget(parent), ui(new Ui::Battery){
 
 Battery::~Battery()
 {
-
+    delete ui;
+    delete progressBar;
+    delete slider;
 }
 
 int Battery::get_remain_int() const{
@@ -42,13 +45,13 @@ double Battery::charge(double amount) {
     return remain;
 }
 
-void Battery::set(double amount) {
+void Battery::set_double(double amount) {
     remain = amount;
     fix();
     update();
 }
 
-void Battery::valueChanged() {
+void Battery::set() {
     remain = slider->value();
     fix();
     update();
@@ -65,5 +68,6 @@ void Battery::fix() {
 void Battery::update() {
     slider->setValue(get_remain_int());
     progressBar->setValue(get_remain_int());
+    qDebug() << "Battery is now at " << get_remain_int() << "%." << endl;
 }
 
