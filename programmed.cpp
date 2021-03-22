@@ -1,7 +1,6 @@
 #include "programmed.h"
 
-Programmed::Programmed(int num) : TreatmentProgram(programs[num], frequency[num])
+Programmed::Programmed(int num) : TreatmentProgram(programs[num], frequency[num], duration[num])
 {
-    TreatmentProgram::set_time(duration[num]);
 }
 
