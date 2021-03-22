@@ -1,8 +1,18 @@
 #include "battery.h"
+#include "ui_battery.h"
 
-Battery::Battery()
-{
+Battery::Battery(QWidget *parent) : QWidget(parent), ui(new Ui::battery){
+    ui->setupUi(this);
+    progressBar = new QProgressBar();
+    slider = new QSlider();
+    progressBar->setRange(0, static_cast<int>(capacity));
+    progressBar->setValue(get_remain_int());
+    slider->setRange(0, static_cast<int>(capacity));
+    slider->setTickInterval(1);
+    slider->setSingleStep(1);
+    slider->setValue(get_remain_int());
 
+    connect(slider, &QSlider::valueChanged, this, &Battery::set);
 }
 
 int Battery::get_remain_int() const{
@@ -16,18 +26,21 @@ double Battery::get_remain_double() const{
 double Battery::drain(double amount) {
     remain -= amount;
     fix();
+    update();
     return remain;
 }
 
 double Battery::charge(double amount) {
     remain += amount;
     fix();
+    update();
     return remain;
 }
 
 void Battery::set(double amount) {
     remain = amount;
     fix();
+    update();
 }
 
 void Battery::fix() {
@@ -37,3 +50,9 @@ void Battery::fix() {
         remain = 0;
     }
 }
+
+void Battery::update() {
+    slider->setValue(get_remain_int());
+    progressBar->setValue(get_remain_int());
+}
+
