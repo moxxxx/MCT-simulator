@@ -10,12 +10,12 @@ struct Program: public QObject
     Q_OBJECT
 public:
     Program();
-    virtual void upPressed();
-    virtual void downPressed();
-    virtual void leftPressed();
-    virtual void rightPressed();
-    virtual void backPressed();
-    virtual void shutdown();
+    virtual void upPressed()= 0;
+    virtual void downPressed()= 0;
+    virtual void leftPressed()= 0;
+    virtual void rightPressed()= 0;
+    virtual void backPressed()= 0;
+    virtual void shutdown()= 0;
 private:
     OS* myOs;
 };
