@@ -4,7 +4,7 @@
 #include <QProgressBar>
 #include <QSlider>
 
-namespace Ui { class battery;}
+namespace Ui { class Battery;}
 
 class Battery: public QWidget
 {
@@ -24,7 +24,7 @@ signals:
     void valueChanged(int value);
 
 private:
-    Ui::battery *ui;
+    Ui::Battery *ui;
     QProgressBar *progressBar;
     QSlider *slider;
     const double capacity = 100;

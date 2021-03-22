@@ -1,7 +1,7 @@
 #include "battery.h"
 #include "ui_battery.h"
 
-Battery::Battery(QWidget *parent) : QWidget(parent), ui(new Ui::battery){
+Battery::Battery(QWidget *parent) : QWidget(parent), ui(new Ui::Battery){
     ui->setupUi(this);
     progressBar = new QProgressBar();
     slider = new QSlider();
@@ -13,6 +13,11 @@ Battery::Battery(QWidget *parent) : QWidget(parent), ui(new Ui::battery){
     slider->setValue(get_remain_int());
 
     connect(slider, &QSlider::valueChanged, this, &Battery::set);
+}
+
+Battery::~Battery()
+{
+
 }
 
 int Battery::get_remain_int() const{
