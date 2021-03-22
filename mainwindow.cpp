@@ -6,9 +6,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    battery = new Battery();
+    battery->show();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete battery;
 }

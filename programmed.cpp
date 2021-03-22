@@ -1,27 +1,6 @@
 #include "programmed.h"
 
-Programmed::Programmed()
+Programmed::Programmed(int num) : TreatmentProgram(programs[num], frequency[num], duration[num])
 {
-
 }
 
-/*
-void Programmed::upPressed(){
-
-}
-void Programmed::downPressed(){
-
-}
-void Programmed::leftPressed(){
-
-}
-void Programmed::rightPressed(){
-
-}
-void Programmed::backPressed(){
-
-}
-void Programmed::shutdown(){
-
-}
-*/
