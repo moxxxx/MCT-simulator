@@ -12,7 +12,7 @@ Battery::Battery(QWidget *parent) : QWidget(parent), ui(new Ui::Battery){
     slider->setSingleStep(1);
     slider->setValue(get_remain_int());
 
-    connect(slider, &QSlider::valueChanged, this, &Battery::valueChanged);
+    connect(slider, &QSlider::valueChanged, this, &Battery::set);
 }
 
 Battery::~Battery()
