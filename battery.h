@@ -12,17 +12,14 @@ class Battery: public QWidget
 public:
     explicit Battery(QWidget *parent = nullptr);
     ~Battery();
-    int get_remain_int() const;
-    double get_remain_double() const;
+    int get() const;
+    double get_double() const;
 
 public slots:
     double drain(double amount);
     double charge(double amount);
-    void set_double(double amount);
     void set();
-
-signals:
-    void valueChanged(int value);
+    void set_double(double amount);
 
 private:
     Ui::Battery *ui;
