@@ -4,6 +4,7 @@
 
 class Programmed: public TreatmentProgram
 {
+    Q_OBJECT
 public:
     Programmed(int num);
     QString programs[4]  = {"COLD", "ALLERGY", "KIDNEY", "JOINTS"};

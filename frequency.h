@@ -4,6 +4,7 @@
 
 class Frequency: public TreatmentProgram
 {
+    Q_OBJECT
 public:
     Frequency(int frequency);
 };
