@@ -8,18 +8,15 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
-    capacity = 100;
     ui->setupUi(this);
-    battery = new Battery();
-    battery->show();
+    battery = new Battery;
     theOS = new OS();
-
+    battery->move(640,480);
+    battery->show();
     connections();
-
+    ui->progressBar->setRange(0, Battery::CAPACITY);
+    ui->progressBar->setValue(Battery::CAPACITY);
     theOS->emitGetPower(); // demo, can be remove later!
-
-
 }
 
 MainWindow::~MainWindow()
@@ -29,9 +26,14 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::connections(){
-    QObject::connect(theOS, &OS::getPowerSignal, battery, &Battery::getRemain);
-    QObject::connect(battery, &Battery::sendRemain, theOS, &OS::getBatteryRemain);
+    QObject::connect(theOS, &OS::updateBatterySignal, this, &MainWindow::updateBattery);
+    QObject::connect(battery, &Battery::sendRemain, theOS, &OS::overideBattery);
     //QObject::connect(theOS, &OS::consumePowerSignal, battery, &Battery::drain);
 
 
 }
+
+void MainWindow::updateBattery(double remain){
+    ui->progressBar->setValue(int(remain));
+}
+

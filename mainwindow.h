@@ -18,15 +18,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
+public slots:
+    void updateBattery(double remain);
 private:
     Ui::MainWindow *ui;
     OS *theOS;
     DENASGUI *denasGUI;
     Battery *battery;
     void connections();
-    int capacity;
-
 
 };
 
