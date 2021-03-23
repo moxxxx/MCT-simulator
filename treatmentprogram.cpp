@@ -13,22 +13,22 @@ TreatmentProgram::TreatmentProgram(QString title, int frequency, int time)
     this->time = time;
 }
 
-void TreatmentProgram::set_power_level(int power_level){
-    this->power_level = power_level;
+void TreatmentProgram::setPowerLevel(int powerLevel){
+    this->powerLevel = powerLevel;
 }
 
-QString TreatmentProgram::get_title(){
+QString TreatmentProgram::getTitle(){
     return title;
 }
 
-int TreatmentProgram::get_time(){
+int TreatmentProgram::getTime(){
     return time;
 }
 
-int TreatmentProgram::get_frequency(){
+int TreatmentProgram::getFrequency(){
     return frequency;
 }
 
-int TreatmentProgram::get_power_level(){
-    return power_level;
+int TreatmentProgram::getPowerLevel(){
+    return powerLevel;
 }
