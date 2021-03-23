@@ -3,6 +3,7 @@
 
 #include<QWidget>
 #include"program.h"
+#include"battery.h"
 
 class OS: public QWidget
 {
@@ -11,17 +12,22 @@ public:
     OS();
     void emitGetPower(); // function to
     void emitConsumePower(double power);
+
 public slots:
-    void getBatteryRemain(double remain);
+    void overideBattery(double remain);
+
 signals:
-    void getPowerSignal();
+    double getPowerSignal();
     void consumePowerSingal(double power);
+    void updateBatterySignal(double remain);
 
 private:
     Program* currentProgram;
     Program* menu;
     double powerRemain; // from 0-100
-
+    double drainBattery(double amount);
+    double chargeBattery(double amount);
+    void fixBattery();
 
 };
 

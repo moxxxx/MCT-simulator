@@ -2,5 +2,4 @@
 
 DENASGUI::DENASGUI()
 {
-
 }
