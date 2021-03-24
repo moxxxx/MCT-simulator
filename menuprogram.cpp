@@ -2,7 +2,9 @@
 
 MenuProgram::MenuProgram()
 {
-
+    timer = new QTimer(this);
+    QObject::connect(timer, &QTimer::timeout, this, &MenuProgram::emitDrainPower);
+    timer->start(50);
 }
 
 void MenuProgram::upPressed(){
@@ -25,5 +27,4 @@ void MenuProgram::shutdown(){
 }
 void MenuProgram::emitDrainPower(){
     emit sendDrainSignal(cost);
-    qDebug() << "try send" << endl;
 }

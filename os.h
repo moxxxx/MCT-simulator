@@ -26,11 +26,12 @@ private:
     Program* currentProgram;
     MenuProgram* menu;
     double powerRemain; // from 0-100
-    double powerConstant = 5;
+    double powerConstant = 0.1;
     bool powerOn;
     double chargeBattery(double amount);
     void fixBattery();
     void turnOn();
+    void shutDown();
 
 
 };

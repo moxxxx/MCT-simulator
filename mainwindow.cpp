@@ -32,7 +32,6 @@ void MainWindow::connections(){
 }
 
 void MainWindow::updateBatterySlot(double remain){
-    qDebug() << "mainwindow got remain" << remain << endl;
     ui->progressBar->setValue(int(remain));
 }
 
