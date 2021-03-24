@@ -32,3 +32,11 @@ int TreatmentProgram::getFrequency(){
 int TreatmentProgram::getPowerLevel(){
     return powerLevel;
 }
+
+void TreatmentProgram::setTime(int time){
+    this->time = time;
+}
+
+QStringList TreatmentProgram::quit(){
+    return {title, QString::number(powerLevel), QString::number(time)};
+}

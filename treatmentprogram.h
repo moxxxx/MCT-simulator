@@ -12,6 +12,8 @@ public:
     int getFrequency();
     int getPowerLevel();
     int getTime();
+    void setTime(int time);
+    QStringList quit();
 
 private:
     QString title;
