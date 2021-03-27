@@ -3,30 +3,24 @@
 
 #include <QMainWindow>
 #include"os.h"
-#include"denasgui.h"
-#include"battery.h"
 #include<QObject>
 
 namespace Ui {
-class MainWindow;
+class DenasGUI;
 }
 
-class MainWindow : public QMainWindow
+class DenasGUI : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    explicit DenasGUI(QWidget *parent = nullptr);
+    ~DenasGUI();
 public slots:
     void updateBatterySlot(double remain);
 
 private:
-    Ui::MainWindow *ui;
-    OS *theOS;
-    DENASGUI *denasGUI;
-    Battery *battery;
-    void connections();
+    Ui::DenasGUI *ui;
 
 };
 

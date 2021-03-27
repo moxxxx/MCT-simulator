@@ -12,7 +12,7 @@ class OS: public QWidget
 {
     Q_OBJECT
 public:
-    OS();
+    explicit OS(QWidget *parent = nullptr);
     double drainBattery(double amount);
 
 public slots:

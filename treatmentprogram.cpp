@@ -6,11 +6,11 @@ TreatmentProgram::TreatmentProgram(QString title, int frequency)
     this->frequency = frequency;
 }
 
-TreatmentProgram::TreatmentProgram(QString title, int frequency, int time)
+TreatmentProgram::TreatmentProgram(QString title, int frequency, int duration)
 {
     this->title = title;
     this->frequency = frequency;
-    this->time = time;
+    this->duration = duration;
 }
 
 void TreatmentProgram::setPowerLevel(int powerLevel){
@@ -21,8 +21,8 @@ QString TreatmentProgram::getTitle(){
     return title;
 }
 
-int TreatmentProgram::getTime(){
-    return time;
+int TreatmentProgram::getDuration(){
+    return duration;
 }
 
 int TreatmentProgram::getFrequency(){
@@ -33,10 +33,18 @@ int TreatmentProgram::getPowerLevel(){
     return powerLevel;
 }
 
-void TreatmentProgram::setTime(int time){
-    this->time = time;
+void TreatmentProgram::setDuration(int duration){
+    this->duration = duration;
 }
 
 QStringList TreatmentProgram::quit(){
-    return {title, QString::number(powerLevel), QString::number(time)};
+    return {title, QString::number(powerLevel), QString::number(duration)};
 }
+
+void TreatmentProgram::start() {
+    timer = new QTimer(this);
+    connect(this->timer, &QTimer::timeout, this, &TreatmentProgram::quit);
+    timer->start(1000);
+}
+
+
