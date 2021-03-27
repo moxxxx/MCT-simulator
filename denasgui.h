@@ -2,7 +2,7 @@
 #define DENASGUI_H
 
 #include <QMainWindow>
-#include"os.h"
+#include"battery.h"
 #include<QObject>
 
 namespace Ui {
