@@ -26,9 +26,9 @@ CONFIG += c++11
 
 SOURCES += \
         battery.cpp \
+        denasgui.cpp \
         frequency.cpp \
         main.cpp \
-        mainwindow.cpp \
         menuprogram.cpp \
         os.cpp \
         program.cpp \
@@ -37,8 +37,8 @@ SOURCES += \
 
 HEADERS += \
         battery.h \
+        denasgui.h \
         frequency.h \
-        mainwindow.h \
         menuprogram.h \
         os.h \
         program.h \

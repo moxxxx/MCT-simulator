@@ -1,11 +1,11 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "denasgui.h"
+#include "ui_denasgui.h"
 #include<QObject>
 #include<QDebug>
 
 
 DenasGUI::DenasGUI(QWidget *parent) :
-    DenasGUI(parent),
+    QMainWindow(parent),
     ui(new Ui::DenasGUI)
 {
     ui->setupUi(this);

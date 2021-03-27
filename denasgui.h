@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef DENASGUI_H
+#define DENASGUI_H
 
 #include <QMainWindow>
 #include"os.h"
@@ -24,4 +24,4 @@ private:
 
 };
 
-#endif // MAINWINDOW_H
+#endif // DENASGUI_H
