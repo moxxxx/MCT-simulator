@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include"battery.h"
 #include<QObject>
+#include<QListWidget>
 
 namespace Ui {
 class DenasGUI;
@@ -21,6 +22,13 @@ public slots:
     void updateList(QStringList list);
     void upPressed();
     void downPressed();
+    void leftPressed();
+    void rightPressed();
+    void okPressed();
+    void menuPressed();
+    void backPressed();
+    void powerPressed();
+    void itemClicked(QListWidgetItem *item);
 
 private:
     Ui::DenasGUI *ui;

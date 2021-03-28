@@ -13,8 +13,15 @@ DenasGUI::DenasGUI(QWidget *parent) :
     ui->batteryBar->setValue(Battery::CAPACITY);
     connect(ui->upButton, &QPushButton::pressed, this, &DenasGUI::upPressed);
     connect(ui->downButton, &QPushButton::pressed, this, &DenasGUI::downPressed);
-    QStringList menu  = {"Program", "Frequency", "Recording"};
-    updateList(menu);
+    connect(ui->leftButton, &QPushButton::pressed, this, &DenasGUI::leftPressed);
+    connect(ui->rightButton, &QPushButton::pressed, this, &DenasGUI::rightPressed);
+    connect(ui->okButton, &QPushButton::pressed, this, &DenasGUI::okPressed);
+    connect(ui->menuButton, &QPushButton::pressed, this, &DenasGUI::menuPressed);
+    connect(ui->backButton, &QPushButton::pressed, this, &DenasGUI::backPressed);
+    connect(ui->powerButton, &QPushButton::pressed, this, &DenasGUI::powerPressed);
+    connect(ui->listWidget, &QListWidget::itemClicked, this, &DenasGUI::itemClicked);
+    menuPressed();
+
 }
 
 DenasGUI::~DenasGUI()
@@ -46,5 +53,42 @@ void DenasGUI::downPressed(){
     }
 }
 
+void DenasGUI::okPressed(){
+    ui->listWidget->itemClicked(ui->listWidget->currentItem());
+}
+
+void DenasGUI::menuPressed(){
+    QStringList menu  = {"Program", "Frequency", "Recording"};
+    updateList(menu);
+}
+
+void DenasGUI::backPressed(){
+    menuPressed();
+}
+
+void DenasGUI::powerPressed(){
+    menuPressed();
+}
+
+void DenasGUI::leftPressed(){
+    menuPressed();
+}
+
+void DenasGUI::rightPressed(){
+    menuPressed();
+}
+
+void DenasGUI::itemClicked(QListWidgetItem *item){
+    if (item->text() == "Program"){
+        QStringList programs  = {"COLD", "ALLERGY", "KIDNEY", "JOINTS"};
+        updateList(programs);
+    }else if (item->text() == "Frequency"){
+        QStringList frequency  = {"10 Hz", "20 Hz", "60 Hz", "77 Hz"};
+        updateList(frequency);
+    }else if (item->text() == "Recording"){
+        QStringList recording  = {"View", "Clear"};
+        updateList(recording);
+    }
+}
 
 

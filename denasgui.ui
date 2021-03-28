@@ -173,7 +173,7 @@
      <string>Menu</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="okButton">
     <property name="geometry">
      <rect>
       <x>160</x>
