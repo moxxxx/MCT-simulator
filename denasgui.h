@@ -18,10 +18,12 @@ public:
     ~DenasGUI();
 public slots:
     void updateBatterySlot(double remain);
+    void updateList(QStringList list);
+    void upPressed();
+    void downPressed();
 
 private:
     Ui::DenasGUI *ui;
-
 };
 
 #endif // DENASGUI_H
