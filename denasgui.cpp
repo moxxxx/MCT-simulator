@@ -63,19 +63,22 @@ void DenasGUI::menuPressed(){
 }
 
 void DenasGUI::backPressed(){
+    //send signal to OS that it may end program
+    //or back to menu
     menuPressed();
 }
 
 void DenasGUI::powerPressed(){
-    menuPressed();
+    //send signal to OS
+    //control menu display
 }
 
 void DenasGUI::leftPressed(){
-    menuPressed();
+    //send left to OS
 }
 
 void DenasGUI::rightPressed(){
-    menuPressed();
+    //send right to OS
 }
 
 void DenasGUI::itemClicked(QListWidgetItem *item){
