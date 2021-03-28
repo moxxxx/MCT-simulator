@@ -1,14 +1,37 @@
 #ifndef DENASGUI_H
 #define DENASGUI_H
-#include<QWidget>
 
+#include <QMainWindow>
+#include"battery.h"
+#include<QObject>
+#include<QListWidget>
 
-class DENASGUI: public QWidget
+namespace Ui {
+class DenasGUI;
+}
+
+class DenasGUI : public QMainWindow
 {
     Q_OBJECT
+
 public:
-    DENASGUI();
+    explicit DenasGUI(QWidget *parent = nullptr);
+    ~DenasGUI();
+public slots:
+    void updateBatterySlot(double remain);
+    void updateList(QStringList list);
+    void upPressed();
+    void downPressed();
+    void leftPressed();
+    void rightPressed();
+    void okPressed();
+    void menuPressed();
+    void backPressed();
+    void powerPressed();
+    void itemClicked(QListWidgetItem *item);
+
 private:
+    Ui::DenasGUI *ui;
 };
 
 #endif // DENASGUI_H

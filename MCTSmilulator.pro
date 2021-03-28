@@ -29,7 +29,6 @@ SOURCES += \
         denasgui.cpp \
         frequency.cpp \
         main.cpp \
-        mainwindow.cpp \
         menuprogram.cpp \
         os.cpp \
         program.cpp \
@@ -40,7 +39,6 @@ HEADERS += \
         battery.h \
         denasgui.h \
         frequency.h \
-        mainwindow.h \
         menuprogram.h \
         os.h \
         program.h \
@@ -49,7 +47,7 @@ HEADERS += \
 
 FORMS += \
         battery.ui \
-        mainwindow.ui
+        denasgui.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

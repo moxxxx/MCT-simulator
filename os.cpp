@@ -1,7 +1,7 @@
 #include "os.h"
 #include<QDebug>
 
-OS::OS(){
+OS::OS(QWidget *parent): QWidget(parent) {
     powerRemain = Battery::CAPACITY;
     turnOn();
 }
