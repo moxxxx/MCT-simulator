@@ -1,4 +1,5 @@
 #include "os.h"
+#include "denasgui.h"
 #include<QDebug>
 
 OS::OS(QWidget *parent): QWidget(parent) {
@@ -37,6 +38,7 @@ void OS::fixBattery() {
 void OS::turnOn(){ //start a new menu program and connect
     powerOn = true;
     qDebug() << "device is turning on" << endl;
+    emit hideBlindSignal();
     //init menuProgram
     menu = new MenuProgram();
     //may need to be delete when reproduce menuprogram class
@@ -47,6 +49,7 @@ void OS::turnOn(){ //start a new menu program and connect
 void OS::shutDown(){
     powerOn = false;
     qDebug() << "device is shutting down" << endl;
+    emit showBlindSignal();
 
 }
 

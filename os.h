@@ -22,6 +22,8 @@ public slots:
     void turnOn();
 signals:
     void updateBatterySignal(double remain);
+    void hideBlindSignal();
+    void showBlindSignal();
 
 private:
     Program* currentProgram;

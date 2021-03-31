@@ -29,6 +29,8 @@ public slots:
     void backPressed();
     void powerPressed();
     void itemClicked(QListWidgetItem *item);
+    void hideBlind();
+    void showBlind();
 signals:
    void powerButtonOffSignal();
    void powerButtonOnSignal();

@@ -13,7 +13,15 @@
   <property name="windowTitle">
    <string>DenasGUI</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">powerButton:clicked{
+color:#fff;
+}</string>
+  </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true">QPushButton:pressed { background-color: #808080; }</string>
+   </property>
    <widget class="QProgressBar" name="batteryBar">
     <property name="geometry">
      <rect>
@@ -118,6 +126,9 @@
       <pointsize>20</pointsize>
      </font>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
    </widget>
    <widget class="QPushButton" name="powerButton">
     <property name="geometry">
@@ -132,6 +143,9 @@
      <font>
       <pointsize>15</pointsize>
      </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Power</string>
@@ -189,6 +203,16 @@
     </property>
     <property name="text">
      <string>OK</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="blind">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>60</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
     </property>
    </widget>
   </widget>

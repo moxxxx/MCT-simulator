@@ -90,6 +90,17 @@ void DenasGUI::rightPressed(){
     //send right to OS
 }
 
+
+void DenasGUI::hideBlind(){
+    //hide blind when power on
+    ui->blind->hide();
+}
+
+void DenasGUI::showBlind(){
+    //show blind when power off
+    ui->blind->show();
+}
+
 void DenasGUI::itemClicked(QListWidgetItem *item){
     if (item->text() == "Program"){
         QStringList programs  = {"COLD", "ALLERGY", "KIDNEY", "JOINTS"};
