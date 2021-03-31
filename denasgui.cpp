@@ -71,6 +71,15 @@ void DenasGUI::backPressed(){
 void DenasGUI::powerPressed(){
     //send signal to OS
     //control menu display
+    qDebug() <<"send OS power is pressed" <<endl;
+    if(powerIsOn==true){
+        emit powerButtonOffSignal();
+        powerIsOn = false;
+    }else{
+        emit powerButtonOnSignal();
+        powerIsOn = true;
+    }
+
 }
 
 void DenasGUI::leftPressed(){

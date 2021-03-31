@@ -3,7 +3,6 @@
 
 OS::OS(QWidget *parent): QWidget(parent) {
     powerRemain = Battery::CAPACITY;
-    turnOn();
 }
 void OS::overideBattery(double remain){
     powerRemain = remain;
@@ -34,17 +33,21 @@ void OS::fixBattery() {
         powerRemain = 0;
     }
 }
-
+//void OS:: powerpressed(){}
 void OS::turnOn(){ //start a new menu program and connect
     powerOn = true;
+    qDebug() << "device is turning on" << endl;
     //init menuProgram
     menu = new MenuProgram();
+    //may need to be delete when reproduce menuprogram class
     QObject::connect(menu, &MenuProgram::sendDrainSignal, this, &OS::drainBatterySlot);
     menu->emitDrainPower();
 }
 
 void OS::shutDown(){
     powerOn = false;
+    qDebug() << "device is shutting down" << endl;
+
 }
 
 void OS::drainBatterySlot(double power){

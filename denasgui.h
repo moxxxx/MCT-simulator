@@ -29,9 +29,12 @@ public slots:
     void backPressed();
     void powerPressed();
     void itemClicked(QListWidgetItem *item);
-
+signals:
+   void powerButtonOffSignal();
+   void powerButtonOnSignal();
 private:
     Ui::DenasGUI *ui;
+    bool powerIsOn = false;
 };
 
 #endif // DENASGUI_H

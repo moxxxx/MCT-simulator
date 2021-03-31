@@ -18,7 +18,8 @@ public:
 public slots:
     void overideBattery(double remain);
     void drainBatterySlot(double power);
-
+    void shutDown();
+    void turnOn();
 signals:
     void updateBatterySignal(double remain);
 
@@ -30,8 +31,7 @@ private:
     bool powerOn;
     double chargeBattery(double amount);
     void fixBattery();
-    void turnOn();
-    void shutDown();
+
 
 
 };
