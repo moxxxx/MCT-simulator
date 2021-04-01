@@ -16,6 +16,7 @@ class DenasGUI : public QMainWindow
 public:
     explicit DenasGUI(QWidget *parent = nullptr);
     ~DenasGUI();
+    bool powerisOn = false;
 public slots:
     void updateBatterySlot(double remain);
     void updateList(QStringList list);
@@ -28,6 +29,14 @@ public slots:
     void backPressed();
     void powerPressed();
     void itemClicked(QListWidgetItem *item);
+    void warningSlot();
+   // void shutdownSlot();
+    //void programStatusSlot(QString programName,int powerLevel,int frequency, bool skinOn);
+    //void programTimerSlot(int timer);
+    //void exitProgramSlot();
+    //void sendRecordSlot(QStringList list);
+
+
 signals:
    void powerButtonSignal();
    void programSignal(int programNum, int programType);

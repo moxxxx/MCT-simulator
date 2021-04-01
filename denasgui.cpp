@@ -40,67 +40,69 @@ void DenasGUI::updateList(QStringList list){
 }
 
 void DenasGUI::upPressed(){
-    if (ui->listWidget->currentRow() > 0){
-            ui->listWidget->setCurrentRow((ui->listWidget->currentRow()-1));
-    }
+        if (ui->listWidget->currentRow() > 0){
+                ui->listWidget->setCurrentRow((ui->listWidget->currentRow()-1));
+        }
+
 }
 
 void DenasGUI::downPressed(){
-    int num = ui->listWidget->count();
-    int index = ui->listWidget->currentRow();
-    if (index < (num-1)){
-            ui->listWidget->setCurrentRow((ui->listWidget->currentRow()+1));
-    }
+        int num = ui->listWidget->count();
+        int index = ui->listWidget->currentRow();
+        if (index < (num-1)){
+                ui->listWidget->setCurrentRow((ui->listWidget->currentRow()+1));
+        }
+
 }
 
 void DenasGUI::okPressed(){
-    QString currentselected = ui->listWidget->currentItem()->text();
-    ui->listWidget->itemClicked(ui->listWidget->currentItem());
-    qDebug() << currentselected <<"is selected" << endl;
-    if(currentselected == "COLD"){
-        emit programSignal(0,0);//cold,programed
-    }
-    if(currentselected == "ALLERGY"){
-        emit programSignal(1,0);//ALLERGY,programed
-    }
-    if(currentselected == "KIDNEY"){
-        emit programSignal(2,0);//KIDNEY,programed
-    }
-    if(currentselected == "JOINTS"){
-        emit programSignal(3,0);//JOINTS,programed
-    }
-    if(currentselected == "10"){
-        emit programSignal(10,1);//10,frequency
-    }
-    if(currentselected == "20"){
-        emit programSignal(20,1);//20,frequency
-    }
-    if(currentselected == "60"){
-        emit programSignal(60,1);//60,frequency
-    }
-    if(currentselected == "77"){
-        emit programSignal(77,1);//77,frequency
-    }
-    if(currentselected == "View"){
-        emit requestRecordSignal();
-    }
-    if(currentselected == "Clear"){
-        emit clearRecordSignal();
-    }
+        QString currentselected = ui->listWidget->currentItem()->text();
+        ui->listWidget->itemClicked(ui->listWidget->currentItem());
+        qDebug() << currentselected <<"is selected" << endl;
+        if(currentselected == "COLD"){
+            emit programSignal(0,0);//cold,programed
+        }
+        if(currentselected == "ALLERGY"){
+            emit programSignal(1,0);//ALLERGY,programed
+        }
+        if(currentselected == "KIDNEY"){
+            emit programSignal(2,0);//KIDNEY,programed
+        }
+        if(currentselected == "JOINTS"){
+            emit programSignal(3,0);//JOINTS,programed
+        }
+        if(currentselected == "10"){
+            emit programSignal(10,1);//10,frequency
+        }
+        if(currentselected == "20"){
+            emit programSignal(20,1);//20,frequency
+        }
+        if(currentselected == "60"){
+            emit programSignal(60,1);//60,frequency
+        }
+        if(currentselected == "77"){
+            emit programSignal(77,1);//77,frequency
+        }
+        if(currentselected == "View"){
+            emit requestRecordSignal();
+        }
+        if(currentselected == "Clear"){
+            emit clearRecordSignal();
+        }
 
 }
 
 void DenasGUI::menuPressed(){
-    QStringList menu  = {"Program", "Frequency", "Recording"};
-    updateList(menu);
-    emit quitProgramSignal();
+        QStringList menu  = {"Program", "Frequency", "Recording"};
+        updateList(menu);
+        emit quitProgramSignal();
 }
 
 void DenasGUI::backPressed(){
     //send signal to OS that it may end program
     //or back to menu
-    menuPressed();
-    emit quitProgramSignal();
+        menuPressed();
+        emit quitProgramSignal();
 }
 
 void DenasGUI::powerPressed(){
@@ -108,6 +110,14 @@ void DenasGUI::powerPressed(){
     //control menu display
     qDebug() <<"send OS power is pressed" <<endl;
     emit powerButtonSignal();
+    if(powerisOn){
+        ui->listWidget->hide();
+        powerisOn = false;
+    }else{
+        ui->listWidget->show();
+        powerisOn = true;
+    }
+
 }
 
 void DenasGUI::leftPressed(){
@@ -131,10 +141,18 @@ void DenasGUI::itemClicked(QListWidgetItem *item){
     }
 }
 
-
-
 void DenasGUI::on_skinSimulator_clicked()
 {
-    emit skinSignal();
-    qDebug()<<"emited skin signal"<<endl;
+    if(powerisOn==true){
+        emit skinSignal();
+        qDebug()<<"emited skin signal"<<endl;
+    }
 }
+void DenasGUI:: warningSlot(){
+
+}
+//void shutdownSlot();
+//void programStatusSlot(QString programName,int powerLevel,int frequency, bool skinOn);
+//void programTimerSlot(int timer);
+//void exitProgramSlot();
+//void sendRecordSlot(QStringList list);
