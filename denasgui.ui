@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>558</height>
+    <height>596</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -205,14 +205,17 @@ color:#fff;
      <string>OK</string>
     </property>
    </widget>
-   <widget class="QGraphicsView" name="blind">
+   <widget class="QPushButton" name="skinSimulator">
     <property name="geometry">
      <rect>
-      <x>70</x>
-      <y>60</y>
-      <width>256</width>
-      <height>192</height>
+      <x>50</x>
+      <y>510</y>
+      <width>271</width>
+      <height>25</height>
      </rect>
+    </property>
+    <property name="text">
+     <string>Skinpoint</string>
     </property>
    </widget>
   </widget>

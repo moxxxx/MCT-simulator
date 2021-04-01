@@ -13,10 +13,6 @@ int main(int argc, char *argv[])
     battery.move(640,480);
     battery.show();
     QObject::connect(&battery, &Battery::sendRemain, &theOS, &OS::overideBattery);
-    QObject::connect(&gui,&DenasGUI::powerButtonOffSignal, &theOS, &OS::shutDown);
-    QObject::connect(&gui,&DenasGUI::powerButtonOnSignal, &theOS, &OS::turnOn);
-    QObject::connect(&theOS, &OS::hideBlindSignal, &gui, &DenasGUI::hideBlind);
-    QObject::connect(&theOS, &OS::showBlindSignal, &gui, &DenasGUI::showBlind);
     QObject::connect(&theOS, &OS::updateBatterySignal, &gui, &DenasGUI::updateBatterySlot);
     return a.exec();
 }

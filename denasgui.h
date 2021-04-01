@@ -1,6 +1,5 @@
 #ifndef DENASGUI_H
 #define DENASGUI_H
-
 #include <QMainWindow>
 #include"battery.h"
 #include<QObject>
@@ -29,14 +28,20 @@ public slots:
     void backPressed();
     void powerPressed();
     void itemClicked(QListWidgetItem *item);
-    void hideBlind();
-    void showBlind();
 signals:
-   void powerButtonOffSignal();
-   void powerButtonOnSignal();
+   void powerButtonSignal();
+   void programSignal(int programNum, int programType);
+   void powerLevelSignal(int powerLevel);
+   void skinSignal();
+   void quitProgramSignal();
+   void requestRecordSignal();
+   void clearRecordSignal();
+
+private slots:
+   void on_skinSimulator_clicked();
+
 private:
     Ui::DenasGUI *ui;
-    bool powerIsOn = false;
 };
 
 #endif // DENASGUI_H

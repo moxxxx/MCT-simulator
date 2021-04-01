@@ -1,4 +1,4 @@
-#include "denasgui.h"
+﻿#include "denasgui.h"
 #include "ui_denasgui.h"
 #include<QObject>
 #include<QDebug>
@@ -54,32 +54,60 @@ void DenasGUI::downPressed(){
 }
 
 void DenasGUI::okPressed(){
+    QString currentselected = ui->listWidget->currentItem()->text();
     ui->listWidget->itemClicked(ui->listWidget->currentItem());
+    qDebug() << currentselected <<"is selected" << endl;
+    if(currentselected == "COLD"){
+        emit programSignal(0,0);//cold,programed
+    }
+    if(currentselected == "ALLERGY"){
+        emit programSignal(1,0);//ALLERGY,programed
+    }
+    if(currentselected == "KIDNEY"){
+        emit programSignal(2,0);//KIDNEY,programed
+    }
+    if(currentselected == "JOINTS"){
+        emit programSignal(3,0);//JOINTS,programed
+    }
+    if(currentselected == "10"){
+        emit programSignal(10,1);//10,frequency
+    }
+    if(currentselected == "20"){
+        emit programSignal(20,1);//20,frequency
+    }
+    if(currentselected == "60"){
+        emit programSignal(60,1);//60,frequency
+    }
+    if(currentselected == "77"){
+        emit programSignal(77,1);//77,frequency
+    }
+    if(currentselected == "View"){
+        emit requestRecordSignal();
+    }
+    if(currentselected == "Clear"){
+        emit clearRecordSignal();
+    }
+
 }
 
 void DenasGUI::menuPressed(){
     QStringList menu  = {"Program", "Frequency", "Recording"};
     updateList(menu);
+    emit quitProgramSignal();
 }
 
 void DenasGUI::backPressed(){
     //send signal to OS that it may end program
     //or back to menu
     menuPressed();
+    emit quitProgramSignal();
 }
 
 void DenasGUI::powerPressed(){
     //send signal to OS
     //control menu display
     qDebug() <<"send OS power is pressed" <<endl;
-    if(powerIsOn==true){
-        emit powerButtonOffSignal();
-        powerIsOn = false;
-    }else{
-        emit powerButtonOnSignal();
-        powerIsOn = true;
-    }
-
+    emit powerButtonSignal();
 }
 
 void DenasGUI::leftPressed(){
@@ -88,17 +116,6 @@ void DenasGUI::leftPressed(){
 
 void DenasGUI::rightPressed(){
     //send right to OS
-}
-
-
-void DenasGUI::hideBlind(){
-    //hide blind when power on
-    ui->blind->hide();
-}
-
-void DenasGUI::showBlind(){
-    //show blind when power off
-    ui->blind->show();
 }
 
 void DenasGUI::itemClicked(QListWidgetItem *item){
@@ -115,3 +132,9 @@ void DenasGUI::itemClicked(QListWidgetItem *item){
 }
 
 
+
+void DenasGUI::on_skinSimulator_clicked()
+{
+    emit skinSignal();
+    qDebug()<<"emited skin signal"<<endl;
+}
