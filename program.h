@@ -1,6 +1,5 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
-
 #include<QObject>
 class OS;
 // todo: how do we figure out the communication from program to OS?

@@ -1,6 +1,5 @@
 #ifndef MENUPROGRAM_H
 #define MENUPROGRAM_H
-
 #include "program.h"
 #include<QTimer>
 #include<QDebug>

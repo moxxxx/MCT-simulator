@@ -1,10 +1,8 @@
 #ifndef OS_H
 #define OS_H
-
 #include<QWidget>
 #include"program.h"
 #include"battery.h"
-
 #include"menuprogram.h"
 #include<QObject>
 
@@ -18,7 +16,6 @@ public:
 public slots:
     void overideBattery(double remain);
     void drainBatterySlot(double power);
-
 signals:
     void updateBatterySignal(double remain);
 
@@ -30,8 +27,10 @@ private:
     bool powerOn;
     double chargeBattery(double amount);
     void fixBattery();
-    void turnOn();
     void shutDown();
+    void turnOn();
+
+
 
 
 };
