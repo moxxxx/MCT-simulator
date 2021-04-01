@@ -2,6 +2,7 @@
 #include "ui_denasgui.h"
 #include<QObject>
 #include<QDebug>
+#include "unistd.h"
 
 
 DenasGUI::DenasGUI(QWidget *parent) :
@@ -56,6 +57,7 @@ void DenasGUI::downPressed(){
 }
 
 void DenasGUI::okPressed(){
+    if(powerisOn){
         QString currentselected = ui->listWidget->currentItem()->text();
         ui->listWidget->itemClicked(ui->listWidget->currentItem());
         qDebug() << currentselected <<"is selected" << endl;
@@ -89,20 +91,24 @@ void DenasGUI::okPressed(){
         if(currentselected == "Clear"){
             emit clearRecordSignal();
         }
-
+    }
 }
 
 void DenasGUI::menuPressed(){
-        QStringList menu  = {"Program", "Frequency", "Recording"};
-        updateList(menu);
+    QStringList menu  = {"Program", "Frequency", "Recording"};
+    updateList(menu);
+    if(powerisOn){
         emit quitProgramSignal();
+    }
 }
 
 void DenasGUI::backPressed(){
     //send signal to OS that it may end program
     //or back to menu
+    if(powerisOn){
         menuPressed();
         emit quitProgramSignal();
+    }
 }
 
 void DenasGUI::powerPressed(){
@@ -143,16 +149,20 @@ void DenasGUI::itemClicked(QListWidgetItem *item){
 
 void DenasGUI::on_skinSimulator_clicked()
 {
-    if(powerisOn==true){
+    if(powerisOn){
         emit skinSignal();
         qDebug()<<"emited skin signal"<<endl;
     }
 }
 void DenasGUI:: warningSlot(){
+    ui->warning->show();
+}
+void DenasGUI:: shutdownSlot(){
+    ui->listWidget->hide();
+}
+void DenasGUI:: programStatusSlot(QString programName,int powerLevel,int frequency, bool skinOn){
 
 }
-//void shutdownSlot();
-//void programStatusSlot(QString programName,int powerLevel,int frequency, bool skinOn);
 //void programTimerSlot(int timer);
 //void exitProgramSlot();
 //void sendRecordSlot(QStringList list);

@@ -30,8 +30,8 @@ public slots:
     void powerPressed();
     void itemClicked(QListWidgetItem *item);
     void warningSlot();
-   // void shutdownSlot();
-    //void programStatusSlot(QString programName,int powerLevel,int frequency, bool skinOn);
+    void shutdownSlot();
+    void programStatusSlot(QString programName,int powerLevel,int frequency, bool skinOn);
     //void programTimerSlot(int timer);
     //void exitProgramSlot();
     //void sendRecordSlot(QStringList list);
