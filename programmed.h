@@ -7,6 +7,8 @@ class Programmed: public TreatmentProgram
     Q_OBJECT
 public:
     Programmed(int num);
+
+private:
     QString programs[4]  = {"COLD", "ALLERGY", "KIDNEY", "JOINTS"};
     int     duration[4]  = {10, 10, 20, 20};
     int     frequency[4] = {60, 7710, 77, 140};
