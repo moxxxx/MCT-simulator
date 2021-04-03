@@ -208,11 +208,16 @@ color:#fff;
    <widget class="QPushButton" name="skinSimulator">
     <property name="geometry">
      <rect>
-      <x>50</x>
+      <x>70</x>
       <y>510</y>
       <width>271</width>
       <height>25</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
     </property>
     <property name="text">
      <string>Skinpoint</string>
@@ -244,6 +249,35 @@ p, li { white-space: pre-wrap; }
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#ef2929;&quot;&gt;Device shutdown in&lt;/span&gt;&lt;a name=&quot;countdowntimer&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-weight:600; color:#ef2929;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-weight:600; color:#ef2929;&quot;&gt;5 seconds&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>10</y>
+      <width>341</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <zorder>frame</zorder>
+   <zorder>batteryBar</zorder>
+   <zorder>upButton</zorder>
+   <zorder>downButton</zorder>
+   <zorder>leftButton</zorder>
+   <zorder>rightButton</zorder>
+   <zorder>listWidget</zorder>
+   <zorder>powerButton</zorder>
+   <zorder>backButton</zorder>
+   <zorder>menuButton</zorder>
+   <zorder>okButton</zorder>
+   <zorder>skinSimulator</zorder>
+   <zorder>warning</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

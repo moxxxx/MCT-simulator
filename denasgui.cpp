@@ -21,8 +21,9 @@ DenasGUI::DenasGUI(QWidget *parent) :
     connect(ui->backButton, &QPushButton::pressed, this, &DenasGUI::backPressed);
     connect(ui->powerButton, &QPushButton::pressed, this, &DenasGUI::powerPressed);
     connect(ui->listWidget, &QListWidget::itemClicked, this, &DenasGUI::itemClicked);
-    menuPressed();
-
+    ui->listWidget->hide();
+    ui->batteryBar->hide();
+    ui->warning->hide();
 }
 
 DenasGUI::~DenasGUI()
@@ -62,28 +63,28 @@ void DenasGUI::okPressed(){
         ui->listWidget->itemClicked(ui->listWidget->currentItem());
         qDebug() << currentselected <<"is selected" << endl;
         if(currentselected == "COLD"){
-            emit programSignal(0,0);//cold,programed
+            emit programSignal(0,1);//cold,programed
         }
         if(currentselected == "ALLERGY"){
-            emit programSignal(1,0);//ALLERGY,programed
+            emit programSignal(1,1);//ALLERGY,programed
         }
         if(currentselected == "KIDNEY"){
-            emit programSignal(2,0);//KIDNEY,programed
+            emit programSignal(2,1);//KIDNEY,programed
         }
         if(currentselected == "JOINTS"){
-            emit programSignal(3,0);//JOINTS,programed
+            emit programSignal(3,1);//JOINTS,programed
         }
-        if(currentselected == "10"){
-            emit programSignal(10,1);//10,frequency
+        if(currentselected == "10 Hz"){
+            emit programSignal(10,0);//10,frequency
         }
-        if(currentselected == "20"){
-            emit programSignal(20,1);//20,frequency
+        if(currentselected == "20 Hz"){
+            emit programSignal(20,0);//20,frequency
         }
-        if(currentselected == "60"){
-            emit programSignal(60,1);//60,frequency
+        if(currentselected == "60 Hz"){
+            emit programSignal(60,0);//60,frequency
         }
-        if(currentselected == "77"){
-            emit programSignal(77,1);//77,frequency
+        if(currentselected == "77 Hz"){
+            emit programSignal(77,0);//77,frequency
         }
         if(currentselected == "View"){
             emit requestRecordSignal();
@@ -118,10 +119,13 @@ void DenasGUI::powerPressed(){
     emit powerButtonSignal();
     if(powerisOn){
         ui->listWidget->hide();
+        ui->batteryBar->hide();
         powerisOn = false;
     }else{
         ui->listWidget->show();
+        ui->batteryBar->show();
         powerisOn = true;
+        menuPressed();
     }
 
 }
