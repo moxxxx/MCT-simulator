@@ -98,6 +98,8 @@ void OS::initProgramSlot(int programNum, int programType){
         }
         qDebug() << "programmed " << endl;
         currentProgram = new Programmed(programNum);
+        connect(currentProgram, &TreatmentProgram::sendDrainSignal, this, &OS::drainBatterySlot);
+        currentProgram->start(); //only for test, to be remove later
     }else if (programType == 0){
         // init frequency treatment!
         currentProgram = new Frequency(programNum);
@@ -109,6 +111,7 @@ void OS::initProgramSlot(int programNum, int programType){
 
 void OS::requestRecordSlot(){
     if (powerOn){
+        currentProgram->quit();
         emit sentRecordSignal(records);
     }
 }

@@ -29,9 +29,7 @@ SOURCES += \
         denasgui.cpp \
         frequency.cpp \
         main.cpp \
-        menuprogram.cpp \
         os.cpp \
-        program.cpp \
         programmed.cpp \
         treatmentprogram.cpp
 
@@ -39,9 +37,7 @@ HEADERS += \
         battery.h \
         denasgui.h \
         frequency.h \
-        menuprogram.h \
         os.h \
-        program.h \
         programmed.h \
         treatmentprogram.h
 
