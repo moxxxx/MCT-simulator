@@ -42,7 +42,9 @@ public slots:
     void initProgramSucceedSlot();
     void programTimerSlot(int timer);
     void exitProgramSlot();
-    //void sendRecordSlot(QStringList list);
+    void sentRecordSlot(QStringList list);
+    void treatmentStartSlot(QString programName, int powerLevel, int frequency, bool skinOn);
+
 
 
 signals:

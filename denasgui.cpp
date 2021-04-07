@@ -33,6 +33,9 @@ DenasGUI::DenasGUI(QWidget *parent) :
     ui->timer_min->hide();
     ui->timer_second->hide();
     ui->colon->hide();
+    ui->recordingList->hide();
+
+
 
 
 
@@ -43,10 +46,18 @@ DenasGUI::DenasGUI(QWidget *parent) :
     ui->tempPower->setText(qTempPower);
 //end of display test display
 //test purpose for timer, should update timer slot once figure out what number we get
-    //ui->timer_min->display(5);
-    //ui->timer_second->display(8);
-    //ui->timer_second->display(700);
+    ui->timer_min->display(5);
+    ui->timer_second->display(8);
+    ui->timer_second->display(700);
 //end of test diplay timer
+
+//test purpose for showing recording
+    QStringList list;
+    list << "what i am writing here is a bunch of bull shit to see if this function actually work" << "THis is a second paragraph to see how will it show on the screen" << "The third." ;
+    QString str = list.join("\n");
+    ui->recordingList->setWordWrap(true);
+    ui->recordingList->setText(str);
+//end of test showing recording
 
 }
 
@@ -90,40 +101,51 @@ void DenasGUI::okPressed(){
         qDebug() << currentselected <<"is selected" << endl;
         if(currentselected == "COLD"){
             emit programSignal(0,1);//cold,programed
+            s = init;
         }
-        if(currentselected == "ALLERGY"){
+        else if(currentselected == "ALLERGY"){
             emit programSignal(1,1);//ALLERGY,programed
+            s = init;
         }
-        if(currentselected == "KIDNEY"){
+        else if(currentselected == "KIDNEY"){
             emit programSignal(2,1);//KIDNEY,programed
+            s = init;
         }
-        if(currentselected == "JOINTS"){
+        else if(currentselected == "JOINTS"){
             emit programSignal(3,1);//JOINTS,programed
+            s = init;
         }
-        if(currentselected == "10 Hz"){
+        else if(currentselected == "10 Hz"){
             emit programSignal(10,0);//10,frequency
+            s = init;
         }
-        if(currentselected == "20 Hz"){
+        else if(currentselected == "20 Hz"){
             emit programSignal(20,0);//20,frequency
+            s = init;
         }
-        if(currentselected == "60 Hz"){
+        else if(currentselected == "60 Hz"){
             emit programSignal(60,0);//60,frequency
+            s = init;
         }
-        if(currentselected == "77 Hz"){
+        else if(currentselected == "77 Hz"){
             emit programSignal(77,0);//77,frequency
             s = init;
         }
-        if(currentselected == "View"){
+        else if(currentselected == "View"){
             emit requestRecordSignal();
+            s = showingRecord;
+            qDebug()<<"s is"<<s<<endl;
         }
-        if(currentselected == "Clear"){
+        else if(currentselected == "Clear"){
             emit clearRecordSignal();
             emit requestRecordSignal();
+            s = showingRecord;
         }
-
-    }
-
-    else if(s == init || s == treatmentApplied){
+        else{
+            s = menu;
+        }
+        qDebug()<<"s is"<<s<<endl;
+    }else if(s == init || s == treatmentApplied){
         //Send powerLevelSignal
         emit powerLevelSignal(temporaryPowerLevel);
         qDebug()<<"send powerlevel signal:"<<temporaryPowerLevel<<endl;
@@ -177,14 +199,16 @@ void DenasGUI::powerPressed(){
         ui->listWidget->hide();
         ui->batteryBar->hide();
         s = off;
-    }else{
+        qDebug()<<"s is"<<s<<endl;
+    }
+    else{
         //if power offed, open the device
         ui->listWidget->show();
         ui->batteryBar->show();
         s = menu;
         menuPressed();
+        qDebug()<<"s is"<<s<<endl;
     }
-
 }
 
 void DenasGUI::leftPressed(){
@@ -230,25 +254,23 @@ void DenasGUI::on_skinSimulator_clicked()
         emit skinSignal();
         qDebug()<<"emited skin signal"<<endl;
         skinisOn = !skinisOn;
+        qDebug()<<skinisOn<<endl;
         if(!skinisOn){
             ui->warning->show();
             ui->warning->setText("No Skin attached");
+
         }else{
             //if(battery > 5){
-
             ui->warning->hide();
-            //start timer ui
             //}
         }
-
-
+        qDebug()<<skinisOn<<endl;
     }
     else if(s == treatmentApplied){
         emit skinSignal();
         qDebug()<<"skin is not detached"<<endl;
         ui->warning->show();
         ui->warning->setText("No Skin attached");
-        //pause timer ui
     }
 }
 void DenasGUI::warningSlot(){
@@ -278,17 +300,37 @@ void DenasGUI::initProgramSucceedSlot(){
 }
 void DenasGUI::programTimerSlot(int timer){
     //get timer signal and update timer ui
-    //5 and 8 need to be update once know that kind of timer is sent here.
-    ui->timer_min->display(5);
-    ui->timer_second->display(8);
-
-
+    //min and second need to be update once know how to calculate.
+    int min = timer;
+    int second = timer;
+    ui->timer_min->display(min);
+    ui->timer_second->display(second);
 }
 void DenasGUI::exitProgramSlot(){
     if(s == treatmentApplied){
-        //hide timer ui,
+        ui->timerBlind->hide();
+        ui->timer_min->hide();
+        ui->timer_second->hide();
         ui->listWidget->show();
         s = menu;
     }
 }
-//void sendRecordSlot(QStringList list);
+void DenasGUI::sentRecordSlot(QStringList list){
+    if(s == menu){
+        QString str = list.join("\n");
+        ui->recordingList->setWordWrap(true);
+        ui->recordingList->setText(str);
+        s = showingRecord;
+    }
+}
+void DenasGUI::treatmentStartSlot(QString programName, int powerLevel, int frequency, bool skinOn){
+    if(s == init  && skinOn == true){
+        //may be change depend ondifferent programName, may be 15:0 or 0:0
+        s = treatmentApplied;
+        ui->timerBlind->show();
+        ui->timer_min->show();
+        ui->timer_second->show();
+        ui->timer_min->display(0);
+        ui->timer_second->display(0);
+    }
+}

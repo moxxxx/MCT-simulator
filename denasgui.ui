@@ -367,6 +367,29 @@ background-color: white;
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
+   <widget class="QLabel" name="recordingList">
+    <property name="geometry">
+     <rect>
+      <x>73</x>
+      <y>66</y>
+      <width>251</width>
+      <height>181</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: white;
+color: blue;</string>
+    </property>
+    <property name="text">
+     <string>Hello</string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+   </widget>
    <zorder>frame</zorder>
    <zorder>batteryBar</zorder>
    <zorder>upButton</zorder>
@@ -386,6 +409,7 @@ background-color: white;
    <zorder>timer_min</zorder>
    <zorder>timer_second</zorder>
    <zorder>colon</zorder>
+   <zorder>recordingList</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
