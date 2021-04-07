@@ -22,11 +22,20 @@ DenasGUI::DenasGUI(QWidget *parent) :
     connect(ui->backButton, &QPushButton::pressed, this, &DenasGUI::backPressed);
     connect(ui->powerButton, &QPushButton::pressed, this, &DenasGUI::powerPressed);
     connect(ui->listWidget, &QListWidget::itemClicked, this, &DenasGUI::itemClicked);
+    //init default gui setting
     ui->listWidget->hide();
     ui->batteryBar->hide();
-    ui->warning->hide();
-    //init display
+    ui->powerLevel->hide();
+    ui->tempPower->hide();
+    //ui->warning->hide();
+    ui->warning->setText("No Skin attached");
 
+
+ //test purpose, should be delete once os sent status
+    //init display
+    QString qTempPower = QString::number(temporaryPowerLevel);
+    ui->tempPower->setText(qTempPower);
+//end of display test display
 
     QLCDNumber *min = new QLCDNumber(3,ui->timerscreen);
     QLCDNumber *second = new QLCDNumber(3,ui->timerscreen);
@@ -36,8 +45,8 @@ DenasGUI::DenasGUI(QWidget *parent) :
        setLayout(layout);
     min->display(0);
     second->display(0);
-
-    //ui->timerscreen->hide();
+    ui->timerscreen->hide();
+    ui->colon->hide();
 }
 
 DenasGUI::~DenasGUI()
@@ -111,7 +120,10 @@ void DenasGUI::okPressed(){
         }
     }
     else if(s == init || s == treatmentApplied){
-        //Send powerLevelSignal(int powerLevel)
+        //Send powerLevelSignal
+        emit powerLevelSignal(temporaryPowerLevel);
+        qDebug()<<"send powerlevel signal:"<<temporaryPowerLevel<<endl;
+        ui->warning->setText("No Skin attached");
 
     }
 }
@@ -124,15 +136,19 @@ void DenasGUI::menuPressed(){
         s = menu;
         qDebug()<<"from treatment to menu"<<endl;
     }
-    qDebug()<<"to menu"<<endl;
-
-
 }
 
 void DenasGUI::backPressed(){
     //send signal to OS that it may end program
     //or back to menu
-    if(s == menu || s == showingRecord){
+    if(s == menu){
+        QString currentselected = ui->listWidget->currentItem()->text();
+        if(currentselected == "Program" || currentselected == "Frequency" ||currentselected == "Recording"){
+            //if in first menu level, do nothing
+        }else{
+            //in second menu level, go back to first menu level
+            menuPressed();}
+    }else if(s == showingRecord){
         menuPressed();
     }else if(s == init || s == treatmentApplied){
         emit quitProgramSignal();
@@ -161,15 +177,27 @@ void DenasGUI::powerPressed(){
 }
 
 void DenasGUI::leftPressed(){
-    if(s == init || s == treatmentApplied){
-        //adjust powerlevel
-    }
+
+    //if(s == init || s == treatmentApplied){
+        if(temporaryPowerLevel >0){
+            temporaryPowerLevel = temporaryPowerLevel - 5;
+            QString qTempPower = QString::number(temporaryPowerLevel);
+            ui->tempPower->setText(qTempPower);
+            ui->powerLevel->setValue(temporaryPowerLevel);
+        }
+   // }
 }
 
 void DenasGUI::rightPressed(){
-    if(s == init || s == treatmentApplied){
-        //adjust powerlevel
-    }
+    //if(s == init || s == treatmentApplied){
+        if(temporaryPowerLevel <100){
+            temporaryPowerLevel = temporaryPowerLevel + 5;
+            QString qTempPower = QString::number(temporaryPowerLevel);
+            ui->tempPower->setText(qTempPower);
+            ui->powerLevel->setValue(temporaryPowerLevel);
+        }
+
+    //}
 }
 
 void DenasGUI::itemClicked(QListWidgetItem *item){
@@ -190,16 +218,23 @@ void DenasGUI::on_skinSimulator_clicked()
     if(s == init){
         emit skinSignal();
         qDebug()<<"emited skin signal"<<endl;
+        //if(battery > 5){
+        ui->warning->hide();
+        //}
         //start treatment
+
     }
     else if(s == treatmentApplied){
         emit skinSignal();
-        qDebug()<<"skin is not detachted"<<endl;
+        qDebug()<<"skin is not detached"<<endl;
+        ui->warning->show();
+        ui->warning->setText("No Skin attached");
         //pause treatment
     }
 }
 void DenasGUI::warningSlot(){
     ui->warning->show();
+    ui->warning->setText("POWER LOW");
 }
 void DenasGUI::turnONSucceedSlot(){
     s = menu;
@@ -214,9 +249,11 @@ void DenasGUI::initProgramSucceedSlot(){
     if(s == menu){
         ui->listWidget->hide();
         s = init;
-        //ui->powerLevel->show();
-
-
+        ui->powerLevel->show();
+        QString qTempPower = QString::number(temporaryPowerLevel);
+        ui->tempPower->setText(qTempPower);
+        //default as 50
+        ui->powerLevel->setValue(temporaryPowerLevel);
     }
 }
 //void programTimerSlot(int timer);

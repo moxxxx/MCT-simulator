@@ -60,7 +60,7 @@ private slots:
 private:
     Ui::DenasGUI *ui;
     status s;
-    int temporaryPowerLevel;
+    int temporaryPowerLevel = 50;
 };
 
 #endif // DENASGUI_H
