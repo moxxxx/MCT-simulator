@@ -223,32 +223,6 @@ color:#fff;
      <string>Skinpoint</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="warning">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>130</x>
-      <y>110</y>
-      <width>141</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QTextEdit{
-color:white;
-}</string>
-    </property>
-    <property name="html">
-     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans'; font-size:10pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#ef2929;&quot;&gt;Power Low&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600; color:#ef2929;&quot;&gt;Device shutdown in&lt;/span&gt;&lt;a name=&quot;countdowntimer&quot;&gt;&lt;/a&gt;&lt;span style=&quot; font-weight:600; color:#ef2929;&quot;&gt; &lt;/span&gt;&lt;span style=&quot; font-weight:600; color:#ef2929;&quot;&gt;5 seconds&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
@@ -265,6 +239,62 @@ p, li { white-space: pre-wrap; }
      <enum>QFrame::Raised</enum>
     </property>
    </widget>
+   <widget class="QLabel" name="warning">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>140</y>
+      <width>121</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:white;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="lineWidth">
+     <number>3</number>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;center&gt;&lt;span style=&quot; font-weight:600; color:#ff0000;&quot;&gt;POWER LOW &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="timerscreen">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>20</y>
+      <width>181</width>
+      <height>121</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGraphicsView&gt;QLCDNumber{
+	color: red
+	font-size: 15px;
+	width: 30px;
+ 	height: 30px;
+}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="colon">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>50</y>
+      <width>64</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
    <zorder>frame</zorder>
    <zorder>batteryBar</zorder>
    <zorder>upButton</zorder>
@@ -278,6 +308,8 @@ p, li { white-space: pre-wrap; }
    <zorder>okButton</zorder>
    <zorder>skinSimulator</zorder>
    <zorder>warning</zorder>
+   <zorder>timerscreen</zorder>
+   <zorder>colon</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
