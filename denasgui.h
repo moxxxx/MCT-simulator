@@ -40,8 +40,8 @@ public slots:
     void turnONSucceedSlot();
     void shutdownSlot();
     void initProgramSucceedSlot();
-    //void programTimerSlot(int timer);
-    //void exitProgramSlot();
+    void programTimerSlot(int timer);
+    void exitProgramSlot();
     //void sendRecordSlot(QStringList list);
 
 
@@ -61,6 +61,7 @@ private:
     Ui::DenasGUI *ui;
     status s;
     int temporaryPowerLevel = 50;
+    bool skinisOn = false;
 };
 
 #endif // DENASGUI_H

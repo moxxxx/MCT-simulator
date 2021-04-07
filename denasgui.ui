@@ -260,7 +260,7 @@ color:#fff;
 background-color:white;
 color: red;
 font-weight: bold;
-align: center;
+alignment: center;
 }</string>
     </property>
     <property name="frameShape">
@@ -274,37 +274,6 @@ align: center;
     </property>
     <property name="text">
      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Power Low&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="QGraphicsView" name="timerscreen">
-    <property name="geometry">
-     <rect>
-      <x>200</x>
-      <y>20</y>
-      <width>181</width>
-      <height>121</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QGraphicsView&gt;QLCDNumber{
-	color: red
-	font-size: 15px;
-	width: 30px;
- 	height: 30px;
-}</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="colon">
-    <property name="geometry">
-     <rect>
-      <x>260</x>
-      <y>50</y>
-      <width>64</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QSlider" name="powerLevel">
@@ -347,6 +316,57 @@ background-color: white;
      <string>50</string>
     </property>
    </widget>
+   <widget class="QGraphicsView" name="timerBlind">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>60</y>
+      <width>261</width>
+      <height>191</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="timer_min">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>140</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="timer_second">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>140</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="colon">
+    <property name="geometry">
+     <rect>
+      <x>190</x>
+      <y>100</y>
+      <width>64</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>DejaVu Sans Mono</family>
+      <pointsize>20</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
    <zorder>frame</zorder>
    <zorder>batteryBar</zorder>
    <zorder>upButton</zorder>
@@ -360,10 +380,12 @@ background-color: white;
    <zorder>okButton</zorder>
    <zorder>skinSimulator</zorder>
    <zorder>warning</zorder>
-   <zorder>timerscreen</zorder>
-   <zorder>colon</zorder>
    <zorder>powerLevel</zorder>
    <zorder>tempPower</zorder>
+   <zorder>timerBlind</zorder>
+   <zorder>timer_min</zorder>
+   <zorder>timer_second</zorder>
+   <zorder>colon</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

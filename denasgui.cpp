@@ -27,8 +27,14 @@ DenasGUI::DenasGUI(QWidget *parent) :
     ui->batteryBar->hide();
     ui->powerLevel->hide();
     ui->tempPower->hide();
-    //ui->warning->hide();
+    ui->warning->hide();
     ui->warning->setText("No Skin attached");
+    ui->timerBlind->hide();
+    ui->timer_min->hide();
+    ui->timer_second->hide();
+    ui->colon->hide();
+
+
 
 
  //test purpose, should be delete once os sent status
@@ -36,17 +42,12 @@ DenasGUI::DenasGUI(QWidget *parent) :
     QString qTempPower = QString::number(temporaryPowerLevel);
     ui->tempPower->setText(qTempPower);
 //end of display test display
+//test purpose for timer, should update timer slot once figure out what number we get
+    //ui->timer_min->display(5);
+    //ui->timer_second->display(8);
+    //ui->timer_second->display(700);
+//end of test diplay timer
 
-    QLCDNumber *min = new QLCDNumber(3,ui->timerscreen);
-    QLCDNumber *second = new QLCDNumber(3,ui->timerscreen);
-    QHBoxLayout *layout = new QHBoxLayout(ui->timerscreen);
-       layout->addWidget(min);
-       layout->addWidget(second);
-       setLayout(layout);
-    min->display(0);
-    second->display(0);
-    ui->timerscreen->hide();
-    ui->colon->hide();
 }
 
 DenasGUI::~DenasGUI()
@@ -110,6 +111,7 @@ void DenasGUI::okPressed(){
         }
         if(currentselected == "77 Hz"){
             emit programSignal(77,0);//77,frequency
+            s = init;
         }
         if(currentselected == "View"){
             emit requestRecordSignal();
@@ -118,12 +120,21 @@ void DenasGUI::okPressed(){
             emit clearRecordSignal();
             emit requestRecordSignal();
         }
+
     }
+
     else if(s == init || s == treatmentApplied){
         //Send powerLevelSignal
         emit powerLevelSignal(temporaryPowerLevel);
         qDebug()<<"send powerlevel signal:"<<temporaryPowerLevel<<endl;
-        ui->warning->setText("No Skin attached");
+        if(!skinisOn){
+            ui->warning->show();
+            ui->warning->setText("No Skin attached");
+            skinisOn = true;
+        }else{
+            ui->warning->hide();
+            skinisOn = false;
+        }
 
     }
 }
@@ -218,10 +229,18 @@ void DenasGUI::on_skinSimulator_clicked()
     if(s == init){
         emit skinSignal();
         qDebug()<<"emited skin signal"<<endl;
-        //if(battery > 5){
-        ui->warning->hide();
-        //}
-        //start treatment
+        skinisOn = !skinisOn;
+        if(!skinisOn){
+            ui->warning->show();
+            ui->warning->setText("No Skin attached");
+        }else{
+            //if(battery > 5){
+
+            ui->warning->hide();
+            //start timer ui
+            //}
+        }
+
 
     }
     else if(s == treatmentApplied){
@@ -229,7 +248,7 @@ void DenasGUI::on_skinSimulator_clicked()
         qDebug()<<"skin is not detached"<<endl;
         ui->warning->show();
         ui->warning->setText("No Skin attached");
-        //pause treatment
+        //pause timer ui
     }
 }
 void DenasGUI::warningSlot(){
@@ -241,6 +260,7 @@ void DenasGUI::turnONSucceedSlot(){
 }
 void DenasGUI::shutdownSlot(){
     ui->listWidget->hide();
+    //currently not hiding because warning signal is sent after shutdown
     ui->warning->hide();
     ui->batteryBar->hide();
     s = off;
@@ -256,6 +276,19 @@ void DenasGUI::initProgramSucceedSlot(){
         ui->powerLevel->setValue(temporaryPowerLevel);
     }
 }
-//void programTimerSlot(int timer);
-//void exitProgramSlot();
+void DenasGUI::programTimerSlot(int timer){
+    //get timer signal and update timer ui
+    //5 and 8 need to be update once know that kind of timer is sent here.
+    ui->timer_min->display(5);
+    ui->timer_second->display(8);
+
+
+}
+void DenasGUI::exitProgramSlot(){
+    if(s == treatmentApplied){
+        //hide timer ui,
+        ui->listWidget->show();
+        s = menu;
+    }
+}
 //void sendRecordSlot(QStringList list);
