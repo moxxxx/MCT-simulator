@@ -45,8 +45,14 @@ void TreatmentProgram::setDuration(int duration){
 
 QString TreatmentProgram::quit(){
     timer->~QTimer();
+    //return empty QString if not start
+    if (runtime == 0){
+        return "";
+    }
+    // Calculate min and sec
     QString min = QString::number(runtime / 60).rightJustified(2, '0');;
     QString sec = QString::number(runtime - (60 * (runtime / 60))).rightJustified(2, '0');
+    //Build recording string
     QString s = "";
     if (duration == 0){
        s+= "Frequency ";
@@ -60,21 +66,26 @@ QString TreatmentProgram::quit(){
 }
 
 void TreatmentProgram::start() {
+    //Start timer tick evrey second
     timer = new QTimer(this);
     connect(this->timer, &QTimer::timeout, this, &TreatmentProgram::update);
     timer->start(1000);
+    qDebug() << title << "started!" << endl;
 }
 
 void TreatmentProgram::update(){
     runtime++;
+    // Check if program reached preset duration
     if ((duration != 0) && (runtime >= duration)){
         emit exitProgramSignal();
     }
+    //drain battery power
     emit sendDrainSignal(powerLevel/10);
+    //Update timer display
     if (duration == 0){
-       emit updateSignal(runtime);
+       emit updateTimerSignal(runtime);
     }else{
-       emit updateSignal(duration - runtime);
+       emit updateTimerSignal(duration - runtime);
     }
     qDebug() << title << "runs for" << runtime << "s"<< endl;
 }
