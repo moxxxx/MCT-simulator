@@ -192,6 +192,22 @@ void DenasGUI::backPressed(){
 void DenasGUI::powerPressed(){
     //send signal to OS
     emit powerButtonSignal();
+    /*
+    if(s != off){
+        ui->listWidget->hide();
+        //currently not hiding because warning signal is sent after shutdown
+        ui->warning->hide();
+        ui->batteryBar->hide();
+        qDebug()<<"shutdown slot is activated"<<endl;
+        s = off;
+    }else{
+        ui->listWidget->show();
+        ui->batteryBar->show();
+        s = menu;
+        menuPressed();
+        qDebug()<<"s is"<<s<<endl;
+    }
+    */
 }
 
 void DenasGUI::leftPressed(){
@@ -243,9 +259,9 @@ void DenasGUI::on_skinSimulator_clicked()
             ui->warning->setText("No Skin attached");
 
         }else{
-            //if(battery > 5){
-            ui->warning->hide();
-            //}
+            if(ui->batteryBar->value() > 5){
+                ui->warning->hide();
+            }
         }
         qDebug()<<skinisOn<<endl;
     }
