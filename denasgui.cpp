@@ -191,24 +191,7 @@ void DenasGUI::backPressed(){
 
 void DenasGUI::powerPressed(){
     //send signal to OS
-    //control menu display
-    qDebug() <<"send OS power is pressed" <<endl;
     emit powerButtonSignal();
-    if(s != off){
-        //if power is currently on, close the device
-        ui->listWidget->hide();
-        ui->batteryBar->hide();
-        s = off;
-        qDebug()<<"s is"<<s<<endl;
-    }
-    else{
-        //if power offed, open the device
-        ui->listWidget->show();
-        ui->batteryBar->show();
-        s = menu;
-        menuPressed();
-        qDebug()<<"s is"<<s<<endl;
-    }
 }
 
 void DenasGUI::leftPressed(){
@@ -278,14 +261,22 @@ void DenasGUI::warningSlot(){
     ui->warning->setText("POWER LOW");
 }
 void DenasGUI::turnONSucceedSlot(){
-    s = menu;
+        //if power offed, open the device
+        ui->listWidget->show();
+        ui->batteryBar->show();
+        s = menu;
+        menuPressed();
+        qDebug()<<"s is"<<s<<endl;
 }
 void DenasGUI::shutdownSlot(){
-    ui->listWidget->hide();
-    //currently not hiding because warning signal is sent after shutdown
-    ui->warning->hide();
-    ui->batteryBar->hide();
-    s = off;
+    if(s != off){
+        ui->listWidget->hide();
+        //currently not hiding because warning signal is sent after shutdown
+        ui->warning->hide();
+        ui->batteryBar->hide();
+        qDebug()<<"shutdown slot is activated"<<endl;
+        s = off;
+    }
 }
 void DenasGUI::initProgramSucceedSlot(){
     if(s == menu){
