@@ -3,7 +3,6 @@
 #include<QWidget>
 #include"treatmentprogram.h"
 #include"battery.h"
-#include"menuprogram.h"
 #include<QObject>
 #include<QTimer>
 #include"programmed.h"
