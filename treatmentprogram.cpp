@@ -4,7 +4,9 @@ TreatmentProgram::TreatmentProgram(QObject *parent, int programNum): QObject(par
 {
     this->title = programs[programNum];
     this->frequency = pFrequency[programNum];
-    this->duration = pDuration[programNum] * 60;
+    //this->duration = pDuration[programNum] * 60;
+    this->duration = pDuration[programNum];
+    this->timer = nullptr;
 }
 
 
@@ -12,11 +14,16 @@ TreatmentProgram::TreatmentProgram(QObject *parent, QString title, int frequency
 {
     this->title = title;
     this->frequency = frequency;
+    this->timer = nullptr;
 }
 
 TreatmentProgram::~TreatmentProgram()
 {
-    delete timer;
+    if (timer){
+        delete timer;
+        timer = nullptr;
+    }
+
 }
 
 void TreatmentProgram::setPowerLevel(int powerLevel){
@@ -44,7 +51,9 @@ void TreatmentProgram::setDuration(int duration){
 }
 
 QString TreatmentProgram::quit(){
-    timer->~QTimer();
+    //timer->~QTimer();
+    delete timer;
+    timer = nullptr;
     //return empty QString if not start
     if (runtime == 0){
         return "";
@@ -75,10 +84,6 @@ void TreatmentProgram::start() {
 
 void TreatmentProgram::update(){
     runtime++;
-    // Check if program reached preset duration
-    if ((duration != 0) && (runtime >= duration)){
-        emit exitProgramSignal();
-    }
     //drain battery power
     emit sendDrainSignal(powerLevel/10);
     //Update timer display
@@ -88,6 +93,9 @@ void TreatmentProgram::update(){
        emit updateTimerSignal(duration - runtime);
     }
     qDebug() << title << "runs for" << runtime << "s"<< endl;
+    // Check if program reached preset duration
+    if ((duration != 0) && (runtime >= duration)){
+        emit exitProgramSignal();
+    }
 }
-
 
