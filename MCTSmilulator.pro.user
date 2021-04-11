@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by QtCreator 4.9.2, 2021-04-07T21:22:05. -->
+=======
+<!-- Written by QtCreator 4.9.2, 2021-03-03T22:26:01. -->
+>>>>>>> main
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -310,7 +314,11 @@
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">MCTSmilulator</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">MCTSmilulator2</value>
+<<<<<<< HEAD
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/student/Desktop/MCT-simulator/MCTSmilulator.pro</value>
+=======
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:/home/student/MCTSmilulator/MCTSmilulator.pro</value>
+>>>>>>> main
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>
