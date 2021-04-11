@@ -402,7 +402,6 @@ color: blue;</string>
    <zorder>menuButton</zorder>
    <zorder>okButton</zorder>
    <zorder>skinSimulator</zorder>
-   <zorder>warning</zorder>
    <zorder>powerLevel</zorder>
    <zorder>tempPower</zorder>
    <zorder>timerBlind</zorder>
@@ -410,6 +409,7 @@ color: blue;</string>
    <zorder>timer_second</zorder>
    <zorder>colon</zorder>
    <zorder>recordingList</zorder>
+   <zorder>warning</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

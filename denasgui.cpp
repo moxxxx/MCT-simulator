@@ -5,6 +5,7 @@
 #include <QLCDNumber>
 #include <QHBoxLayout>
 #include "unistd.h"
+#include <math.h>
 
 DenasGUI::DenasGUI(QWidget *parent) :
     QMainWindow(parent),
@@ -152,10 +153,8 @@ void DenasGUI::okPressed(){
         if(!skinisOn){
             ui->warning->show();
             ui->warning->setText("No Skin attached");
-            skinisOn = true;
         }else{
             ui->warning->hide();
-            skinisOn = false;
         }
 
     }
@@ -167,7 +166,13 @@ void DenasGUI::menuPressed(){
     if(s == init || s == treatmentApplied){
         emit quitProgramSignal();
         s = menu;
-        qDebug()<<"from treatment to menu"<<endl;
+        qDebug()<<"back to menu"<<endl;
+    }
+    if(s == showingRecord){
+        ui->recordingList->hide();
+        ui->listWidget->show();
+        updateList(menuList);
+        s = menu;
     }
 }
 
@@ -182,8 +187,11 @@ void DenasGUI::backPressed(){
             //in second menu level, go back to first menu level
             menuPressed();}
     }else if(s == showingRecord){
-        menuPressed();
+        ui->recordingList->hide();
+        ui->listWidget->show();
+        s = menu;
     }else if(s == init || s == treatmentApplied){
+        skinisOn = false;
         emit quitProgramSignal();
         s = menu;
     }
@@ -192,22 +200,7 @@ void DenasGUI::backPressed(){
 void DenasGUI::powerPressed(){
     //send signal to OS
     emit powerButtonSignal();
-    /*
-    if(s != off){
-        ui->listWidget->hide();
-        //currently not hiding because warning signal is sent after shutdown
-        ui->warning->hide();
-        ui->batteryBar->hide();
-        qDebug()<<"shutdown slot is activated"<<endl;
-        s = off;
-    }else{
-        ui->listWidget->show();
-        ui->batteryBar->show();
-        s = menu;
-        menuPressed();
-        qDebug()<<"s is"<<s<<endl;
-    }
-    */
+    qDebug()<<"power button pressed"<<endl;
 }
 
 void DenasGUI::leftPressed(){
@@ -250,26 +243,41 @@ void DenasGUI::itemClicked(QListWidgetItem *item){
 void DenasGUI::on_skinSimulator_clicked()
 {
     if(s == init){
-        emit skinSignal();
-        qDebug()<<"emited skin signal"<<endl;
         skinisOn = !skinisOn;
-        qDebug()<<skinisOn<<endl;
         if(!skinisOn){
             ui->warning->show();
             ui->warning->setText("No Skin attached");
-
         }else{
             if(ui->batteryBar->value() > 5){
+                //skin is attached
+                qDebug()<<"emited skin signal"<<endl;
+                emit skinSignal();
                 ui->warning->hide();
+                ui->tempPower->hide();
+                ui->powerLevel->hide();
             }
         }
-        qDebug()<<skinisOn<<endl;
+        qDebug()<<"skin is on: "<<skinisOn<<endl;
     }
+    //if treatment has started
     else if(s == treatmentApplied){
-        emit skinSignal();
-        qDebug()<<"skin is not detached"<<endl;
-        ui->warning->show();
-        ui->warning->setText("No Skin attached");
+        skinisOn = !skinisOn;
+        if(!skinisOn){
+            //warning and quit program if skin is not attached during treatment
+            ui->warning->show();
+            ui->warning->setText("No Skin attached");
+            emit quitProgramSignal();
+            ui->warning->hide();
+        }
+        //not available, when skinoff during treatment, program quit.skin on again will not do anything.
+        /*
+        else{
+            if(ui->batteryBar->value() > 5){
+                //skin is attached
+                emit skinSignal();
+                ui->warning->hide();
+                ui->tempPower->hide();
+                ui->powerLevel->hide();}}*/
     }
 }
 void DenasGUI::warningSlot(){
@@ -278,6 +286,7 @@ void DenasGUI::warningSlot(){
 }
 void DenasGUI::turnONSucceedSlot(){
         //if power offed, open the device
+        qDebug()<<"turnon"<<endl;
         ui->listWidget->show();
         ui->batteryBar->show();
         s = menu;
@@ -286,12 +295,21 @@ void DenasGUI::turnONSucceedSlot(){
 }
 void DenasGUI::shutdownSlot(){
     if(s != off){
+        qDebug()<<"shutdown slot in gui is activated"<<endl;
+        //hide all display
         ui->listWidget->hide();
-        //currently not hiding because warning signal is sent after shutdown
         ui->warning->hide();
+        ui->powerLevel->hide();
+        ui->tempPower->hide();
         ui->batteryBar->hide();
-        qDebug()<<"shutdown slot is activated"<<endl;
+        ui->timerBlind->hide();
+        ui->timer_second->hide();
+        ui->timer_min->hide();
+        //set status to off
         s = off;
+        skinisOn = false;
+        //set default powerlevel back to 50
+        temporaryPowerLevel = 50;
     }
 }
 void DenasGUI::initProgramSucceedSlot(){
@@ -299,6 +317,7 @@ void DenasGUI::initProgramSucceedSlot(){
         ui->listWidget->hide();
         s = init;
         ui->powerLevel->show();
+        ui->tempPower->show();
         QString qTempPower = QString::number(temporaryPowerLevel);
         ui->tempPower->setText(qTempPower);
         //default as 50
@@ -306,10 +325,9 @@ void DenasGUI::initProgramSucceedSlot(){
     }
 }
 void DenasGUI::programTimerSlot(int timer){
-    //get timer signal and update timer ui
-    //min and second need to be update once know how to calculate.
-    int min = timer;
-    int second = timer;
+    //get timer signal and update timer ui in seconds.
+    int min = static_cast<int>(floor(timer/60));
+    int second = timer-(min*60);
     ui->timer_min->display(min);
     ui->timer_second->display(second);
 }
@@ -318,12 +336,17 @@ void DenasGUI::exitProgramSlot(){
         ui->timerBlind->hide();
         ui->timer_min->hide();
         ui->timer_second->hide();
+        ui->powerLevel->hide();
+        ui->tempPower->hide();
+        temporaryPowerLevel = 50;
+        ui->warning->hide();
         ui->listWidget->show();
         s = menu;
     }
 }
 void DenasGUI::sentRecordSlot(QStringList list){
     if(s == menu){
+        ui->recordingList->show();
         QString str = list.join("\n");
         ui->recordingList->setWordWrap(true);
         ui->recordingList->setText(str);
