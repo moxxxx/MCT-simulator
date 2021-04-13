@@ -164,6 +164,9 @@ void DenasGUI::menuPressed(){
     QStringList menuList  = {"Program", "Frequency", "Recording"};
     updateList(menuList);
     if(s == init || s == treatmentApplied){
+        ui->powerLevel->hide();
+        ui->tempPower->hide();
+        ui->listWidget->show();
         emit quitProgramSignal();
         s = menu;
         qDebug()<<"back to menu"<<endl;
@@ -191,6 +194,7 @@ void DenasGUI::backPressed(){
         ui->listWidget->show();
         s = menu;
     }else if(s == init || s == treatmentApplied){
+        menuPressed();
         skinisOn = false;
         emit quitProgramSignal();
         s = menu;
