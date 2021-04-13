@@ -10,7 +10,7 @@ OS::OS(QWidget *parent): QWidget(parent) {
     powerRemain = Battery::CAPACITY;
     powerOn = false;
     treatmentOn = false;
-    records << "record1" << "record 2"; //FOR TEST PURPOSE REMOVE LATER
+    //records << "record1" << "record 2"; //FOR TEST PURPOSE REMOVE LATER
     currentProgram = nullptr;
 
 
