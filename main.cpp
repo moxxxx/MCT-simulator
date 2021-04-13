@@ -26,6 +26,7 @@ int main(int argc, char *argv[])
     QObject::connect(&gui, &DenasGUI::powerLevelSignal, &theOS, &OS::powerLevelSlot);
     //QObject::connect(&theOS, &OS::treatmentStartSignal, &gui, &DenasGUI::treatmentStartSlot);
     //QObject::connect(&theOS, &OS::programTimerSignal, &gui, &DenasGUI::programTimerSlot);
+    QObject::connect(&gui, &DenasGUI::skinSignal, &theOS, &OS::skinSlot);
 
     return a.exec();
 }

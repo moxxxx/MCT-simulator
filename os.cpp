@@ -25,7 +25,7 @@ double OS::drainBattery(double amount) { // will trigged by treatment program
     powerRemain -= amount;
     fixBattery();
     emit updateBatterySignal(powerRemain);
-    if (powerRemain <= warningLevel and powerRemain >=1 ){ // only send warning Signal when 1 =< powerRemain <= warning level
+    if (powerRemain <= WARNING_LEVEL and powerRemain >=1 ){ // only send warning Signal when 1 =< powerRemain <= warning level
         emit warningSignal();
         qDebug() << "warning signal has been sent" << endl;
     }
@@ -52,7 +52,7 @@ void OS::turnOn(){ //start a new menu program and connect
     powerOn = true;
     timer = new QTimer(this);
     QObject::connect(timer, &QTimer::timeout, this, &OS::consume);
-    timer->start(interval);
+    timer->start(TIMER_INTERVAL);
     emit turnONSucceedSignal();
 }
 
@@ -70,13 +70,13 @@ void OS::shutDown(){
 }
 
 void OS::drainBatterySlot(double power){ // this one is for treatment Program
-    drainBattery(power * powerConstant);
+    drainBattery(power * POWER_CONSTANT);
 }
 
 void OS:: powerButtonSlot(){
     if (powerOn){ //turn off
         shutDown();
-    }else if (powerRemain > warningLevel){ //it is OFF and has enough power turn on!
+    }else if (powerRemain > WARNING_LEVEL){ //it is OFF and has enough power turn on!
         turnOn();
     }else{
         qDebug() << "not enough battery, please charge" << endl;
@@ -95,7 +95,7 @@ void OS::initProgramSlot(int programNum, int programType){
         qDebug() << "one program is still runing!" << endl;
         return;
     }
-    if (powerRemain < warningLevel){
+    if (powerRemain < WARNING_LEVEL){
         qDebug() << "no enough battery" << endl;
         return;
     }
@@ -138,7 +138,7 @@ void OS::clearRecordSlot(){
 
 void OS::consume(){ // this function will be called by timer in OS,
     if (powerOn){ //only consume power when user turn on machine!
-       drainBattery(cost * powerConstant);
+       drainBattery(COST_CONSTANT * POWER_CONSTANT);
     }
 }
 
@@ -168,10 +168,12 @@ void OS::skinSlot(){// GUI tell OS that skin is attached
     if (!currentProgram){
         return;
     }
+    if (treatmentOn){ // if treatment is already on then ignore
+        return;
+    }
     currentProgram->start(); //start program
     treatmentOn = true; // OS update
     qDebug() << "detected Skin ON, program Start!" << endl;
-
     //tell GUI that it start!
     emit treatmentStartSignal(currentProgram->getTitle() , currentProgram->getPowerLevel(), currentProgram->getFrequency(), true);
     qDebug() << "emit TreatmentStartSignal" << endl;
@@ -202,6 +204,7 @@ void OS::exitTreatmentProgram(){
     // tell GUI that a program has exit
     emit exitProgramSignal();
     qDebug() << "send exitProgramSignal to GUI, a tretamentProgram has been terminated. " << endl;
+    qDebug() << records << endl;
 
 }
 
