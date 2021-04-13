@@ -347,10 +347,16 @@ void DenasGUI::exitProgramSlot(){
 void DenasGUI::sentRecordSlot(QStringList list){
     if(s == menu){
         ui->recordingList->show();
+        if(list.isEmpty()){
+            qDebug()<<"is empty"<<endl;
+            ui->recordingList->setText("no record");
+        }
+        else{
         QString str = list.join("\n");
         ui->recordingList->setWordWrap(true);
         ui->recordingList->setText(str);
         s = showingRecord;
+        }
     }
 }
 void DenasGUI::treatmentStartSlot(QString programName, int powerLevel, int frequency, bool skinOn){
