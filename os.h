@@ -14,7 +14,7 @@ class OS: public QWidget
     Q_OBJECT
 public:
     explicit OS(QWidget *parent = nullptr);
-    double drainBattery(double amount);
+    //double drainBattery(double amount);
 
 public slots:
     void overideBattery(double remain);
@@ -45,15 +45,16 @@ private:
     QStringList records;
     TreatmentProgram* currentProgram;
     //MenuProgram* menu;
-    const double powerConstant = 0.1; //0.1 is signidicant changed, when use it we can set it as 0.01
-    const double cost = 0.5; //
-    const double warningLevel = 5;
-    const int interval = 50;
+    const double POWER_CONSTANT = 0.1; //0.1 is signidicant changed, when use it we can set it as 0.01
+    const double COST_CONSTANT = 5; //
+    const double WARNING_LEVEL = 5;
+    const int TIMER_INTERVAL = 1000;
     QTimer *timer;
     double powerRemain; // from 0-100
     bool powerOn;
     bool treatmentOn; // indicate whether there is a treatment going on!
     double chargeBattery(double amount);
+    double drainBattery(double amount);
     void fixBattery();
     void shutDown();
     void turnOn();
