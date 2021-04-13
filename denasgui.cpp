@@ -204,19 +204,18 @@ void DenasGUI::powerPressed(){
 }
 
 void DenasGUI::leftPressed(){
-
-    //if(s == init || s == treatmentApplied){
+    if(s == init || s == treatmentApplied){
         if(temporaryPowerLevel >0){
             temporaryPowerLevel = temporaryPowerLevel - 5;
             QString qTempPower = QString::number(temporaryPowerLevel);
             ui->tempPower->setText(qTempPower);
             ui->powerLevel->setValue(temporaryPowerLevel);
         }
-   // }
+    }
 }
 
 void DenasGUI::rightPressed(){
-    //if(s == init || s == treatmentApplied){
+    if(s == init || s == treatmentApplied){
         if(temporaryPowerLevel <100){
             temporaryPowerLevel = temporaryPowerLevel + 5;
             QString qTempPower = QString::number(temporaryPowerLevel);
@@ -224,7 +223,7 @@ void DenasGUI::rightPressed(){
             ui->powerLevel->setValue(temporaryPowerLevel);
         }
 
-    //}
+    }
 }
 
 void DenasGUI::itemClicked(QListWidgetItem *item){
@@ -305,6 +304,7 @@ void DenasGUI::shutdownSlot(){
         ui->timerBlind->hide();
         ui->timer_second->hide();
         ui->timer_min->hide();
+        ui->recordingList->hide();
         //set status to off
         s = off;
         skinisOn = false;
