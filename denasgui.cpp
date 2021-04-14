@@ -324,7 +324,7 @@ void DenasGUI::programTimerSlot(int timer){
     ui->timer_second->display(second);
 }
 void DenasGUI::exitProgramSlot(){
-    if(s == treatmentApplied){
+    if(s == treatmentApplied  || s == init){
         ui->timerBlind->hide();
         ui->timer_min->hide();
         ui->timer_second->hide();
@@ -354,7 +354,6 @@ void DenasGUI::sentRecordSlot(QStringList list){
 }
 void DenasGUI::treatmentStartSlot(QString programName, int powerLevel, int frequency, bool skinOn){
     if(s == init  && skinOn == true){
-        //may be change depend ondifferent programName, may be 15:0 or 0:0
         s = treatmentApplied;
         ui->timerBlind->show();
         ui->timer_min->show();
