@@ -2,8 +2,10 @@
 #include "ui_denasgui.h"
 #include<QObject>
 #include<QDebug>
+#include <QLCDNumber>
+#include <QHBoxLayout>
 #include "unistd.h"
-
+#include <math.h>
 
 DenasGUI::DenasGUI(QWidget *parent) :
     QMainWindow(parent),
@@ -21,9 +23,19 @@ DenasGUI::DenasGUI(QWidget *parent) :
     connect(ui->backButton, &QPushButton::pressed, this, &DenasGUI::backPressed);
     connect(ui->powerButton, &QPushButton::pressed, this, &DenasGUI::powerPressed);
     connect(ui->listWidget, &QListWidget::itemClicked, this, &DenasGUI::itemClicked);
+    //init default gui setting
     ui->listWidget->hide();
     ui->batteryBar->hide();
+    ui->powerLevel->hide();
+    ui->tempPower->hide();
     ui->warning->hide();
+    ui->warning->setText("No Skin attached");
+    ui->timerBlind->hide();
+    ui->timer_min->hide();
+    ui->timer_second->hide();
+    ui->colon->hide();
+    ui->recordingList->hide();
+
 }
 
 DenasGUI::~DenasGUI()
@@ -42,100 +54,167 @@ void DenasGUI::updateList(QStringList list){
 }
 
 void DenasGUI::upPressed(){
+    if(s == menu){
         if (ui->listWidget->currentRow() > 0){
                 ui->listWidget->setCurrentRow((ui->listWidget->currentRow()-1));
         }
-
+    }
 }
 
 void DenasGUI::downPressed(){
+    if(s == menu){
         int num = ui->listWidget->count();
         int index = ui->listWidget->currentRow();
         if (index < (num-1)){
                 ui->listWidget->setCurrentRow((ui->listWidget->currentRow()+1));
         }
-
+    }
 }
 
 void DenasGUI::okPressed(){
-    if(powerisOn){
+    if(s == menu){
         QString currentselected = ui->listWidget->currentItem()->text();
         ui->listWidget->itemClicked(ui->listWidget->currentItem());
         qDebug() << currentselected <<"is selected" << endl;
         if(currentselected == "COLD"){
             emit programSignal(0,1);//cold,programed
+            s = init;
         }
-        if(currentselected == "ALLERGY"){
+        else if(currentselected == "ALLERGY"){
             emit programSignal(1,1);//ALLERGY,programed
+            s = init;
         }
-        if(currentselected == "KIDNEY"){
+        else if(currentselected == "KIDNEY"){
             emit programSignal(2,1);//KIDNEY,programed
+            s = init;
         }
-        if(currentselected == "JOINTS"){
+        else if(currentselected == "JOINTS"){
             emit programSignal(3,1);//JOINTS,programed
+            s = init;
         }
-        if(currentselected == "10 Hz"){
+        else if(currentselected == "10 Hz"){
             emit programSignal(10,0);//10,frequency
+            s = init;
         }
-        if(currentselected == "20 Hz"){
+        else if(currentselected == "20 Hz"){
             emit programSignal(20,0);//20,frequency
+            s = init;
         }
-        if(currentselected == "60 Hz"){
+        else if(currentselected == "60 Hz"){
             emit programSignal(60,0);//60,frequency
+            s = init;
         }
-        if(currentselected == "77 Hz"){
+        else if(currentselected == "77 Hz"){
             emit programSignal(77,0);//77,frequency
+            s = init;
         }
-        if(currentselected == "View"){
+        else if(currentselected == "View"){
             emit requestRecordSignal();
+            s = showingRecord;
+            qDebug()<<"s is"<<s<<endl;
         }
-        if(currentselected == "Clear"){
+        else if(currentselected == "Clear"){
             emit clearRecordSignal();
+            emit requestRecordSignal();
+            s = showingRecord;
         }
+        else{
+            s = menu;
+        }
+        qDebug()<<"s is"<<s<<endl;
+    }else if(s == init ){
+        //Send powerLevelSignal
+        emit powerLevelSignal(temporaryPowerLevel);
+        qDebug()<<"send powerlevel signal:"<<temporaryPowerLevel<<endl;
+        if(!skinisOn){
+            ui->warning->show();
+            ui->warning->setText("No Skin attached");
+        }else{
+            ui->warning->hide();
+        }
+
+    }else if(s == treatmentApplied){
+        //Send powerLevelSignal
+        emit powerLevelSignal(temporaryPowerLevel);
+        qDebug()<<"send powerlevel signal:"<<temporaryPowerLevel<<endl;
+        ui->powerLevel->hide();
+        ui->tempPower->hide();
     }
+
 }
 
 void DenasGUI::menuPressed(){
-    QStringList menu  = {"Program", "Frequency", "Recording"};
-    updateList(menu);
-    if(powerisOn){
+    QStringList menuList  = {"Program", "Frequency", "Recording"};
+    updateList(menuList);
+    if(s == init || s == treatmentApplied){
+        ui->powerLevel->hide();
+        ui->tempPower->hide();
+        ui->listWidget->show();
         emit quitProgramSignal();
+        s = menu;
+        qDebug()<<"back to menu"<<endl;
+    }
+    if(s == showingRecord){
+        ui->recordingList->hide();
+        ui->listWidget->show();
+        updateList(menuList);
+        s = menu;
     }
 }
 
 void DenasGUI::backPressed(){
     //send signal to OS that it may end program
     //or back to menu
-    if(powerisOn){
+    if(s == menu){
+        QString currentselected = ui->listWidget->currentItem()->text();
+        if(currentselected == "Program" || currentselected == "Frequency" ||currentselected == "Recording"){
+            //if in first menu level, do nothing
+        }else{
+            //in second menu level, go back to first menu level
+            menuPressed();}
+    }else if(s == showingRecord){
+        ui->recordingList->hide();
+        ui->listWidget->show();
+        s = menu;
+    }else if(s == init || s == treatmentApplied){
         menuPressed();
+        skinisOn = false;
         emit quitProgramSignal();
+        s = menu;
     }
 }
 
 void DenasGUI::powerPressed(){
     //send signal to OS
-    //control menu display
-    qDebug() <<"send OS power is pressed" <<endl;
     emit powerButtonSignal();
-    if(powerisOn){
-        ui->listWidget->hide();
-        ui->batteryBar->hide();
-        powerisOn = false;
-    }else{
-        ui->listWidget->show();
-        ui->batteryBar->show();
-        powerisOn = true;
-        menuPressed();
-    }
-
+    qDebug()<<"power button pressed"<<endl;
 }
 
 void DenasGUI::leftPressed(){
-    //send left to OS
+    if(s == init || s == treatmentApplied){
+        if(temporaryPowerLevel >0){
+            temporaryPowerLevel = temporaryPowerLevel - 5;
+            QString qTempPower = QString::number(temporaryPowerLevel);
+            ui->tempPower->show();
+            ui->powerLevel->show();
+            ui->tempPower->setText(qTempPower);
+            ui->powerLevel->setValue(temporaryPowerLevel);
+        }
+    }
 }
 
 void DenasGUI::rightPressed(){
-    //send right to OS
+    if(s == init || s == treatmentApplied){
+        if(temporaryPowerLevel <100){
+            temporaryPowerLevel = temporaryPowerLevel + 5;
+            QString qTempPower = QString::number(temporaryPowerLevel);
+            ui->tempPower->show();
+            ui->powerLevel->show();
+            ui->tempPower->setText(qTempPower);
+            ui->powerLevel->setValue(temporaryPowerLevel);
+        }
+
+    }
 }
 
 void DenasGUI::itemClicked(QListWidgetItem *item){
@@ -153,20 +232,133 @@ void DenasGUI::itemClicked(QListWidgetItem *item){
 
 void DenasGUI::on_skinSimulator_clicked()
 {
-    if(powerisOn){
-        emit skinSignal();
-        qDebug()<<"emited skin signal"<<endl;
+    if(s == init){
+        skinisOn = !skinisOn;
+        if(!skinisOn){
+            ui->warning->show();
+            ui->warning->setText("No Skin attached");
+        }else{
+            if(ui->batteryBar->value() > 5){
+                //skin is attached
+                qDebug()<<"emited skin signal"<<endl;
+                emit skinSignal();
+                ui->warning->hide();
+                ui->tempPower->hide();
+                ui->powerLevel->hide();
+            }
+        }
+        qDebug()<<"skin is on: "<<skinisOn<<endl;
+    }
+    //if treatment has started
+    else if(s == treatmentApplied){
+        skinisOn = !skinisOn;
+        if(!skinisOn){
+            //warning and quit program if skin is not attached during treatment
+            ui->warning->show();
+            ui->warning->setText("No Skin attached");
+            emit quitProgramSignal();
+            ui->warning->hide();
+        }
+        //not available, when skinoff during treatment, program quit.skin on again will not do anything.
+        /*
+        else{
+            if(ui->batteryBar->value() > 5){
+                //skin is attached
+                emit skinSignal();
+                ui->warning->hide();
+                ui->tempPower->hide();
+                ui->powerLevel->hide();}}*/
     }
 }
-void DenasGUI:: warningSlot(){
+void DenasGUI::warningSlot(){
     ui->warning->show();
+    ui->warning->setText("POWER LOW");
 }
-void DenasGUI:: shutdownSlot(){
-    ui->listWidget->hide();
+void DenasGUI::turnONSucceedSlot(){
+        //if power offed, open the device
+        qDebug()<<"turnon"<<endl;
+        ui->listWidget->show();
+        ui->batteryBar->show();
+        s = menu;
+        menuPressed();
+        qDebug()<<"s is"<<s<<endl;
 }
-void DenasGUI:: programStatusSlot(QString programName,int powerLevel,int frequency, bool skinOn){
-
+void DenasGUI::shutdownSlot(){
+    if(s != off){
+        qDebug()<<"shutdown slot in gui is activated"<<endl;
+        //hide all display
+        ui->listWidget->hide();
+        ui->warning->hide();
+        ui->powerLevel->hide();
+        ui->tempPower->hide();
+        ui->batteryBar->hide();
+        ui->timerBlind->hide();
+        ui->timer_second->hide();
+        ui->timer_min->hide();
+        ui->recordingList->hide();
+        skinisOn = false;
+        //set status to off
+        s = off;
+        skinisOn = false;
+        //set default powerlevel back to 50
+        temporaryPowerLevel = 50;
+    }
 }
-//void programTimerSlot(int timer);
-//void exitProgramSlot();
-//void sendRecordSlot(QStringList list);
+void DenasGUI::initProgramSucceedSlot(){
+    if(s == menu){
+        ui->listWidget->hide();
+        s = init;
+        ui->powerLevel->show();
+        ui->tempPower->show();
+        QString qTempPower = QString::number(temporaryPowerLevel);
+        ui->tempPower->setText(qTempPower);
+        //default as 50
+        ui->powerLevel->setValue(temporaryPowerLevel);
+    }
+}
+void DenasGUI::programTimerSlot(int timer){
+    //get timer signal and update timer ui in seconds.
+    int min = static_cast<int>(floor(timer/60));
+    int second = timer-(min*60);
+    ui->timer_min->display(min);
+    ui->timer_second->display(second);
+}
+void DenasGUI::exitProgramSlot(){
+    if(s == treatmentApplied  || s == init){
+        ui->timerBlind->hide();
+        ui->timer_min->hide();
+        ui->timer_second->hide();
+        ui->powerLevel->hide();
+        ui->tempPower->hide();
+        skinisOn = false;
+        temporaryPowerLevel = 50;
+        ui->warning->hide();
+        ui->listWidget->show();
+        s = menu;
+    }
+}
+void DenasGUI::sentRecordSlot(QStringList list){
+    if(s == menu){
+        ui->recordingList->show();
+        if(list.isEmpty()){
+            qDebug()<<"is empty"<<endl;
+            ui->recordingList->setText("no record");
+        }
+        else{
+        QString str = list.join("\n");
+        ui->recordingList->setWordWrap(true);
+        ui->recordingList->setText(str);
+        s = showingRecord;
+        }
+    }
+}
+void DenasGUI::treatmentStartSlot(QString programName, int powerLevel, int frequency, bool skinOn){
+    if(s == init  && skinOn == true){
+        s = treatmentApplied;
+        ui->timerBlind->show();
+        ui->timer_min->show();
+        ui->timer_second->show();
+        ui->timer_min->display(0);
+        ui->timer_second->display(0);
+    }
+}

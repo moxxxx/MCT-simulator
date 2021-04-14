@@ -52,6 +52,7 @@ void TreatmentProgram::setDuration(int duration){
 
 QString TreatmentProgram::quit(){
     //timer->~QTimer();
+    timer->stop();
     delete timer;
     timer = nullptr;
     //return empty QString if not start
@@ -92,10 +93,12 @@ void TreatmentProgram::update(){
     }else{
        emit updateTimerSignal(duration - runtime);
     }
-    qDebug() << title << "runs for" << runtime << "s"<< endl;
-    // Check if program reached preset duration
-    if ((duration != 0) && (runtime >= duration)){
-        emit exitProgramSignal();
+    if (timer){
+        qDebug() << title << "runs for" << runtime << "s"<< endl;
+        // Check if program reached preset duration
+        if ((duration != 0) && (runtime >= duration)){
+            emit exitProgramSignal();
+        }
     }
 }
 

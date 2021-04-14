@@ -5,6 +5,14 @@
 #include<QObject>
 #include<QListWidget>
 
+enum status {
+    off = 0,
+    menu = 1,
+    init = 2,
+    treatmentApplied = 3,
+    showingRecord = 4
+};
+
 namespace Ui {
 class DenasGUI;
 }
@@ -16,7 +24,6 @@ class DenasGUI : public QMainWindow
 public:
     explicit DenasGUI(QWidget *parent = nullptr);
     ~DenasGUI();
-    bool powerisOn = false;
 public slots:
     void updateBatterySlot(double remain);
     void updateList(QStringList list);
@@ -30,11 +37,14 @@ public slots:
     void powerPressed();
     void itemClicked(QListWidgetItem *item);
     void warningSlot();
+    void turnONSucceedSlot();
     void shutdownSlot();
-    void programStatusSlot(QString programName,int powerLevel,int frequency, bool skinOn);
-    //void programTimerSlot(int timer);
-    //void exitProgramSlot();
-    //void sendRecordSlot(QStringList list);
+    void initProgramSucceedSlot();
+    void programTimerSlot(int timer);
+    void exitProgramSlot();
+    void sentRecordSlot(QStringList list);
+    void treatmentStartSlot(QString programName, int powerLevel, int frequency, bool skinOn);
+
 
 
 signals:
@@ -51,6 +61,9 @@ private slots:
 
 private:
     Ui::DenasGUI *ui;
+    status s;
+    int temporaryPowerLevel = 50;
+    bool skinisOn = false;
 };
 
 #endif // DENASGUI_H
