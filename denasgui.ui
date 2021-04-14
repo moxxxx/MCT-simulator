@@ -402,13 +402,13 @@ color: blue;</string>
    <zorder>menuButton</zorder>
    <zorder>okButton</zorder>
    <zorder>skinSimulator</zorder>
-   <zorder>powerLevel</zorder>
-   <zorder>tempPower</zorder>
    <zorder>timerBlind</zorder>
    <zorder>timer_min</zorder>
    <zorder>timer_second</zorder>
    <zorder>colon</zorder>
    <zorder>recordingList</zorder>
+   <zorder>powerLevel</zorder>
+   <zorder>tempPower</zorder>
    <zorder>warning</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">

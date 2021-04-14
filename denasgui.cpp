@@ -146,7 +146,7 @@ void DenasGUI::okPressed(){
             s = menu;
         }
         qDebug()<<"s is"<<s<<endl;
-    }else if(s == init || s == treatmentApplied){
+    }else if(s == init ){
         //Send powerLevelSignal
         emit powerLevelSignal(temporaryPowerLevel);
         qDebug()<<"send powerlevel signal:"<<temporaryPowerLevel<<endl;
@@ -157,7 +157,14 @@ void DenasGUI::okPressed(){
             ui->warning->hide();
         }
 
+    }else if(s == treatmentApplied){
+        //Send powerLevelSignal
+        emit powerLevelSignal(temporaryPowerLevel);
+        qDebug()<<"send powerlevel signal:"<<temporaryPowerLevel<<endl;
+        ui->powerLevel->hide();
+        ui->tempPower->hide();
     }
+
 }
 
 void DenasGUI::menuPressed(){
@@ -212,6 +219,8 @@ void DenasGUI::leftPressed(){
         if(temporaryPowerLevel >0){
             temporaryPowerLevel = temporaryPowerLevel - 5;
             QString qTempPower = QString::number(temporaryPowerLevel);
+            ui->tempPower->show();
+            ui->powerLevel->show();
             ui->tempPower->setText(qTempPower);
             ui->powerLevel->setValue(temporaryPowerLevel);
         }
@@ -223,6 +232,8 @@ void DenasGUI::rightPressed(){
         if(temporaryPowerLevel <100){
             temporaryPowerLevel = temporaryPowerLevel + 5;
             QString qTempPower = QString::number(temporaryPowerLevel);
+            ui->tempPower->show();
+            ui->powerLevel->show();
             ui->tempPower->setText(qTempPower);
             ui->powerLevel->setValue(temporaryPowerLevel);
         }
@@ -309,6 +320,7 @@ void DenasGUI::shutdownSlot(){
         ui->timer_second->hide();
         ui->timer_min->hide();
         ui->recordingList->hide();
+        skinisOn = false;
         //set status to off
         s = off;
         skinisOn = false;
