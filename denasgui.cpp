@@ -36,30 +36,6 @@ DenasGUI::DenasGUI(QWidget *parent) :
     ui->colon->hide();
     ui->recordingList->hide();
 
-
-
-
-
-
- //test purpose, should be delete once os sent status
-    //init display
-    QString qTempPower = QString::number(temporaryPowerLevel);
-    ui->tempPower->setText(qTempPower);
-//end of display test display
-//test purpose for timer, should update timer slot once figure out what number we get
-    ui->timer_min->display(5);
-    ui->timer_second->display(8);
-    ui->timer_second->display(700);
-//end of test diplay timer
-
-//test purpose for showing recording
-    QStringList list;
-    list << "what i am writing here is a bunch of bull shit to see if this function actually work" << "THis is a second paragraph to see how will it show on the screen" << "The third." ;
-    QString str = list.join("\n");
-    ui->recordingList->setWordWrap(true);
-    ui->recordingList->setText(str);
-//end of test showing recording
-
 }
 
 DenasGUI::~DenasGUI()
@@ -354,6 +330,7 @@ void DenasGUI::exitProgramSlot(){
         ui->timer_second->hide();
         ui->powerLevel->hide();
         ui->tempPower->hide();
+        skinisOn = false;
         temporaryPowerLevel = 50;
         ui->warning->hide();
         ui->listWidget->show();
