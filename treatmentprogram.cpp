@@ -52,6 +52,7 @@ void TreatmentProgram::setDuration(int duration){
 
 QString TreatmentProgram::quit(){
     //timer->~QTimer();
+    timer->stop();
     delete timer;
     timer = nullptr;
     //return empty QString if not start
