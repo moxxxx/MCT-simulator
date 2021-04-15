@@ -8,8 +8,6 @@ class Programmed: public TreatmentProgram
 public:
     Programmed(int num);
 
-private:
-    void updateTimer();
 };
 
 #endif // PROGRAMMED_H
