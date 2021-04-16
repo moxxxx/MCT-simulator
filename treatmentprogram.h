@@ -35,7 +35,7 @@ private:
     QString title;
     int frequency;
     int powerLevel = 50;
-    int duration;
+    int duration = 0;
     QString startTime = "";
     QTimer* timer;
 
