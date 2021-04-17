@@ -63,13 +63,13 @@ QString TreatmentProgram::quit(){
     QString min = QString::number(runtime / 60).rightJustified(2, '0');;
     QString sec = QString::number(runtime - (60 * (runtime / 60))).rightJustified(2, '0');
     //Build recording string
-    QString s = "";
+    QString s = startTime + "\n";
     if (duration == 0){
-       s+= "Frequency ";
+       s+= "Frequency: ";
     }else{
-       s+= "Program " ;
+       s+= "Program: " ;
     }
-    s += title + " Power " + QString::number(powerLevel) + " Time " + min + ":" + sec;
+    s += title + "  Power: " + QString::number(powerLevel) + "  Time: " + min + ":" + sec + "\n";
     qDebug() << s << endl;
     runtime = 0;
     return s;
@@ -80,6 +80,7 @@ void TreatmentProgram::start() {
     timer = new QTimer(this);
     connect(this->timer, &QTimer::timeout, this, &TreatmentProgram::update);
     timer->start(1000);
+    startTime = QDateTime::currentDateTime().toString();
     qDebug() << title << "started!" << endl;
 }
 

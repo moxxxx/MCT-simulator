@@ -2,6 +2,7 @@
 #define TREATMENTPROGRAM_H
 #include <QTimer>
 #include<QDebug>
+#include <QDateTime>
 
 class TreatmentProgram: public QObject
 {
@@ -34,8 +35,8 @@ private:
     QString title;
     int frequency;
     int powerLevel = 50;
-    int duration;
-    bool isStarted;
+    int duration = 0;
+    QString startTime = "";
     QTimer* timer;
 
 };
