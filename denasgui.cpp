@@ -131,7 +131,6 @@ void DenasGUI::okPressed(){
     }else if(s == init ){   //if now in init status
         //Send powerLevelSignal
         emit powerLevelSignal(TEMPORARY_POWER_LEVEL);
-
         qDebug()<<"send powerlevel signal:"<<TEMPORARY_POWER_LEVEL<<endl;
         //if skin not attached, show warning,
         if(!skinisOn){
@@ -145,8 +144,12 @@ void DenasGUI::okPressed(){
     }else if(s == treatmentApplied){
         //Send powerLevelSignal
         emit powerLevelSignal(TEMPORARY_POWER_LEVEL);
+        QString s_TEMPORARY_POWER_LEVEL = QString::number(TEMPORARY_POWER_LEVEL);
+        currentPowerlevel = s_TEMPORARY_POWER_LEVEL;
         qDebug()<<"send powerlevel signal:"<<TEMPORARY_POWER_LEVEL<<endl;
-
+        QString currentProgramInfo = " Program: " + currentProgramName + "\n Current power level: " + currentPowerlevel +
+                "\n Current frequency: " + currentFrequency;
+        ui->currentInfo->setText(currentProgramInfo);
         //hide powerlevel adjust bar and value
         ui->powerLevel->hide();
         ui->tempPower->hide();
@@ -376,6 +379,9 @@ void DenasGUI::treatmentStartSlot(QString programName, int powerLevel, int frequ
         qDebug()<<sfrequency<<endl;
         QString currentProgramInfo = " Program: " + programName + "\n Current power level: " + spowerLevel +
                 "\n Current frequency: " + sfrequency;
+        currentProgramName = programName;
+        currentPowerlevel = spowerLevel;
+        currentFrequency = sfrequency;
         ui->currentInfo->show();
         ui->currentInfo->setText(currentProgramInfo);
         s = treatmentApplied;

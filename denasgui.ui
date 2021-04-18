@@ -306,8 +306,8 @@ background-color: white;
    <widget class="QLabel" name="tempPower">
     <property name="geometry">
      <rect>
-      <x>180</x>
-      <y>90</y>
+      <x>160</x>
+      <y>130</y>
       <width>101</width>
       <height>51</height>
      </rect>
@@ -413,8 +413,8 @@ color: blue;</string>
    <widget class="QLabel" name="currentInfo">
     <property name="geometry">
      <rect>
-      <x>113</x>
-      <y>79</y>
+      <x>100</x>
+      <y>60</y>
       <width>241</width>
       <height>51</height>
      </rect>

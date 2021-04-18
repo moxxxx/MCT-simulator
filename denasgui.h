@@ -65,6 +65,9 @@ private:
     status s;
     int TEMPORARY_POWER_LEVEL = 50;
     bool skinisOn = false;
+    QString currentProgramName;
+    QString currentPowerlevel;
+    QString currentFrequency;
 };
 
 #endif // DENASGUI_H
