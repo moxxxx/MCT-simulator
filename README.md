@@ -1,14 +1,23 @@
-# MCT-Simulator
+# MCT-Simulator💅
 
 Team Number: 34
 
-Bob Tian, Jojo Duan, April Yu
+Yukun Tian, Jojo Duan, April Yu
+
+:new_moon:
+:waxing_crescent_moon:
+:first_quarter_moon:
+:waxing_gibbous_moon:
+:full_moon:
+:waning_gibbous_moon:
+:last_quarter_moon:
+:waning_crescent_moon:
+
+Refer to MCT-simulator/uml/COMP3004 Final project design.pdf for detail documentation
 
 
-Refer to [MCT-simulator/uml/COMP3004 Final project design.pdf](https://github.com/moxxxx/MCT-simulator/raw/main/uml/COMP3004%20Final%20project%20design.pdfhttps://github.com/moxxxx/MCT-simulator/raw/main/uml/COMP3004%20Final%20project%20design.pdf) for detail documentation
+### Project Summary 🌊 🥥 🍸
 
-
-### Project Summary
 
 <img src="https://user-images.githubusercontent.com/19592124/115156080-a7531580-a050-11eb-8683-ec88edf616bf.png" width="250"><img src="https://user-images.githubusercontent.com/19592124/115156082-aa4e0600-a050-11eb-8122-a53c1769b58d.png" width="250">
 
@@ -43,7 +52,7 @@ The last thing is Battery Override panel, where testers can test the system beha
 ### 
 
 
-### Design Summary: 
+### Design Summary: 🍄 🍀 🍓
 
 Our MCT-Simulator consists of the following classes: OS class, DenasGUI class, TreatmentProgram class and Battery class. 
 
