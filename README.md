@@ -2,7 +2,7 @@
 
 Team Number: 34
 
-Yukun Tian, Jojo Duan, April Yu
+Yukun Tian(BobYukunTian), Jojo Duan(moxxxx), April Yu(UneSaltedFish)
 
 :new_moon:
 :waxing_crescent_moon:
