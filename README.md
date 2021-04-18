@@ -5,7 +5,8 @@ Yukun Tian, Jojo Duan, April Yu,
 
 ## Project Summary
 
-
+![1](https://user-images.githubusercontent.com/19592124/115156080-a7531580-a050-11eb-8683-ec88edf616bf.png)
+![2](https://user-images.githubusercontent.com/19592124/115156082-aa4e0600-a050-11eb-8122-a53c1769b58d.png)
 
 Image1.1 					image1.2
 
@@ -20,17 +21,8 @@ Once users click the skinpoint button, which means users have applied their skin
 Once users exit a program or program time out, it returns the menu.
 
 
-
-<p id="gdcalert3" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert4">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image3.png "image_tooltip")
-
-
-<p id="gdcalert4" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert5">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image4.png "image_tooltip")
+![3](https://user-images.githubusercontent.com/19592124/115156088-b1751400-a050-11eb-99b9-0665d9e5fe38.png)
+![4](https://user-images.githubusercontent.com/19592124/115156090-b33ed780-a050-11eb-9364-39ef899e7ff1.png)
 
 
 (image 1.3)				    (image 1.4)
@@ -41,22 +33,9 @@ The last thing is Battery Override panel, where testers can test the system beha
 
 
 
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image5.png "image_tooltip")
-
-
-<p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image6.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image6.png "image_tooltip")
-
-
-<p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image7.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image7.png "image_tooltip")
+![5](https://user-images.githubusercontent.com/19592124/115156098-be920300-a050-11eb-80ff-a2b9198ea2ce.png)
+![6](https://user-images.githubusercontent.com/19592124/115156119-d10c3c80-a050-11eb-8d3a-4d8560acfc86.png)
+![7](https://user-images.githubusercontent.com/19592124/115156101-c0f45d00-a050-11eb-8176-78806458ac95.png)
 
 
 (image 1.5)				(image 1.6)			(image 1.7)
