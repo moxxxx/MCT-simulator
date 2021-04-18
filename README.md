@@ -2,7 +2,7 @@
 
 Team Number: 34
 
-Yukun Tian, Jojo Duan, April Yu
+Bob Tian, Jojo Duan, April Yu
 
 
 Refer to MCT-simulator/uml/COMP3004 Final project design.pdf for detail documentation
