@@ -7,7 +7,7 @@ Yukun Tian, Jojo Duan, April Yu,
 
 <img src="https://user-images.githubusercontent.com/19592124/115156080-a7531580-a050-11eb-8683-ec88edf616bf.png" width="250"><img src="https://user-images.githubusercontent.com/19592124/115156082-aa4e0600-a050-11eb-8122-a53c1769b58d.png" width="250">
 
-Image1.1 					image1.2
+(Image1.1) 				                           	(image1.2)
 
 Our MCT-simulator simulates the Denas device (image 1.1). We have a display screen, a power button, up/down/right/left button, back button, menu button, ok button, skinpoint button.
 
@@ -20,24 +20,19 @@ Once users click the skinpoint button, which means users have applied their skin
 Once users exit a program or program time out, it returns the menu.
 
 
-![3](https://user-images.githubusercontent.com/19592124/115156088-b1751400-a050-11eb-99b9-0665d9e5fe38.png | width=250)
-![4](https://user-images.githubusercontent.com/19592124/115156090-b33ed780-a050-11eb-9364-39ef899e7ff1.png  | width=250)
+<img src="https://user-images.githubusercontent.com/19592124/115156088-b1751400-a050-11eb-99b9-0665d9e5fe38.png" width="250"><img src="https://user-images.githubusercontent.com/19592124/115156090-b33ed780-a050-11eb-9364-39ef899e7ff1.png" width="250">
 
 
-(image 1.3)				    (image 1.4)
+(image 1.3)				                          (image 1.4)
 
 If users select to view the records, GUI shows up to 5 records from history(image 1.6).
 
 The last thing is Battery Override panel, where testers can test the system behavior under every power level(image 1.7).  
 
 
+<img src="https://user-images.githubusercontent.com/19592124/115156098-be920300-a050-11eb-80ff-a2b9198ea2ce.png" width="250"><img src="https://user-images.githubusercontent.com/19592124/115156119-d10c3c80-a050-11eb-8d3a-4d8560acfc86.png" width="250"><img src="https://user-images.githubusercontent.com/19592124/115156101-c0f45d00-a050-11eb-8176-78806458ac95.png" width="250">
 
-![5](https://user-images.githubusercontent.com/19592124/115156098-be920300-a050-11eb-80ff-a2b9198ea2ce.png | width=250)
-![6](https://user-images.githubusercontent.com/19592124/115156119-d10c3c80-a050-11eb-8d3a-4d8560acfc86.png | width=250)
-![7](https://user-images.githubusercontent.com/19592124/115156101-c0f45d00-a050-11eb-8176-78806458ac95.png  | width=250)
-
-
-(image 1.5)				(image 1.6)			(image 1.7)
+(image 1.5)				                        (image 1.6)		                        	(image 1.7)
 
 
 ## 
