@@ -410,6 +410,19 @@ color: blue;</string>
      <enum>Qt::AutoText</enum>
     </property>
    </widget>
+   <widget class="QLabel" name="currentInfo">
+    <property name="geometry">
+     <rect>
+      <x>113</x>
+      <y>79</y>
+      <width>241</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
    <zorder>frame</zorder>
    <zorder>batteryBar</zorder>
    <zorder>upButton</zorder>
@@ -430,6 +443,7 @@ color: blue;</string>
    <zorder>powerLevel</zorder>
    <zorder>tempPower</zorder>
    <zorder>warning</zorder>
+   <zorder>currentInfo</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
