@@ -5,7 +5,8 @@ Yukun Tian, Jojo Duan, April Yu,
 
 ## Project Summary
 
-![1](https://user-images.githubusercontent.com/19592124/115156080-a7531580-a050-11eb-8683-ec88edf616bf.png){:height="36px" width="36px"}.
+![1](){:height="36px" width="36px"}.
+<img src="https://user-images.githubusercontent.com/19592124/115156080-a7531580-a050-11eb-8683-ec88edf616bf.png" width="100">
 ![2](https://user-images.githubusercontent.com/19592124/115156082-aa4e0600-a050-11eb-8122-a53c1769b58d.png | width=250)
 
 Image1.1 					image1.2
