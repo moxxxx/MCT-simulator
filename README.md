@@ -1,27 +1,6 @@
 MCT-Simulator
 Team Number: 34
-<!-----
-NEW: Check the "Suppress top comment" option to remove this info from the output.
 
-Conversion time: 2.93 seconds.
-
-
-Using this HTML file:
-
-1. Paste this output into your source file.
-2. See the notes and action items below regarding this conversion run.
-3. Check the rendered output (headings, lists, code blocks, tables) for proper
-   formatting and use a linkchecker before you publish this page.
-
-Conversion notes:
-
-* Docs to Markdown version 1.0β29
-* Sun Apr 18 2021 11:07:29 GMT-0700 (PDT)
-* Source doc: COMP3004 Final project design
-* This is a partial selection. Check to make sure intra-doc links work.
-* This document has images: check for >>>>>  gd2md-html alert:  inline image link in generated source and store images to your server. NOTE: Images in exported zip file from Google Docs may not appear in  the same order as they do in your doc. Please check the images!
-
------>
 
 
 <p style="color: red; font-weight: bold">>>>>>  gd2md-html alert:  ERRORs: 0; WARNINGs: 0; ALERTS: 7.</p>
