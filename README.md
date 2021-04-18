@@ -1,11 +1,14 @@
-MCT-Simulator
+# MCT-Simulator
 
-Team Number: 34
+## Team Number: 34
 
-Yukun Tian, Jojo Duan, April Yu,
+## Yukun Tian, Jojo Duan, April Yu
 
 
-## Project Summary
+Refer to MCT-simulator/uml/COMP3004 Final project design.pdf for detail documentation
+
+
+### Project Summary
 
 <img src="https://user-images.githubusercontent.com/19592124/115156080-a7531580-a050-11eb-8683-ec88edf616bf.png" width="250"><img src="https://user-images.githubusercontent.com/19592124/115156082-aa4e0600-a050-11eb-8122-a53c1769b58d.png" width="250">
 
@@ -37,10 +40,10 @@ The last thing is Battery Override panel, where testers can test the system beha
 (image 1.5)				                        (image 1.6)		                        	(image 1.7)
 
 
-## 
+### 
 
 
-## Design Summary: 
+### Design Summary: 
 
 Our MCT-Simulator consists of the following classes: OS class, DenasGUI class, TreatmentProgram class and Battery class. 
 
