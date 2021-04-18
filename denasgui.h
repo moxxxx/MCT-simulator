@@ -5,13 +5,7 @@
 #include<QObject>
 #include<QListWidget>
 
-enum status {
-    off = 0,
-    menu = 1,
-    init = 2,
-    treatmentApplied = 3,
-    showingRecord = 4
-};
+
 
 namespace Ui {
 class DenasGUI;
@@ -20,6 +14,13 @@ class DenasGUI;
 class DenasGUI : public QMainWindow
 {
     Q_OBJECT
+    enum status {
+        off = 0,
+        menu = 1,
+        init = 2,
+        treatmentApplied = 3,
+        showingRecord = 4
+    };
 
 public:
     explicit DenasGUI(QWidget *parent = nullptr);
@@ -62,8 +63,11 @@ private slots:
 private:
     Ui::DenasGUI *ui;
     status s;
-    int temporaryPowerLevel = 50;
+    int TEMPORARY_POWER_LEVEL = 50;
     bool skinisOn = false;
+    QString currentProgramName;
+    QString currentPowerlevel;
+    QString currentFrequency;
 };
 
 #endif // DENASGUI_H
