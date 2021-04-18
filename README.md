@@ -5,7 +5,7 @@ Team Number: 34
 Bob Tian, Jojo Duan, April Yu
 
 
-Refer to MCT-simulator/uml/COMP3004 Final project design.pdf for detail documentation
+Refer to [MCT-simulator/uml/COMP3004 Final project design.pdf](https://github.com/moxxxx/MCT-simulator/raw/main/uml/COMP3004%20Final%20project%20design.pdfhttps://github.com/moxxxx/MCT-simulator/raw/main/uml/COMP3004%20Final%20project%20design.pdf) for detail documentation
 
 
 ### Project Summary
