@@ -1,6 +1,6 @@
-#MCT-Simulator
-#Team Number: 34
-#Yukun Tian, Jojo Duan, April Yu,
+MCT-Simulator
+Team Number: 34
+Yukun Tian, Jojo Duan, April Yu,
 
 
 ## Project Summary
