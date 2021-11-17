@@ -1,6 +1,5 @@
 # MCT-Simulator💅
 
-Team Number: 34
 
 Bob Tian(BobYukunTian), Jojo Duan(moxxxx), April Yu(UneSaltedFish)
 
@@ -13,7 +12,7 @@ Bob Tian(BobYukunTian), Jojo Duan(moxxxx), April Yu(UneSaltedFish)
 :last_quarter_moon:
 :waning_crescent_moon:
 
-Refer to [MCT-simulator/uml/COMP3004 Final project design.pdf](https://github.com/moxxxx/MCT-simulator/raw/main/uml/COMP3004%20Final%20project%20design.pdf) for detail documentation
+Refer to [MCT-simulator/uml/ project design.pdf](https://github.com/moxxxx/MCT-simulator/raw/main/uml/COMP3004%20Final%20project%20design.pdf) for detail documentation
 
 
 ### Project Summary 🌊 🥥 🍸
